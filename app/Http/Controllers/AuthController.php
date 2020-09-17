@@ -22,15 +22,15 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
+            'name'          => 'required|string',
+            'email'         => 'required|string|email|unique:users',
+            'password'      => 'required|string|confirmed'
         ]);
 
         $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'name'          => $request->name,
+            'email'         => $request->email,
+            'password'      => bcrypt($request->password)
         ]);
         $user->save();
         return response()->json([
@@ -51,9 +51,9 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
+            'email'         => 'required|string|email',
+            'password'      => 'required|string',
+            'remember_me'   => 'boolean'
         ]);
 
         $credentials = request(['email', 'password']);
@@ -72,9 +72,9 @@ class AuthController extends Controller
             $token->save();
 
             return response()->json([
-                'access_token' => $tokenResult->accessToken,
-                'token_type' => 'Bearer',
-                'expires_at' => Carbon::parse(
+                'access_token'     => $tokenResult->accessToken,
+                'token_type'       => 'Bearer',
+                'expires_at'       => Carbon::parse(
                     $tokenResult->token->expires_at
                 )->toDateTimeString()
             ]);
