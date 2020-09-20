@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from '@material-ui/core';
-import Register from './components/Register'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
 
 
 function App() {
     return(
         <div>
             <h1>Hello</h1>
-            <Register />
+            <Login />
         </div>
     )
 }
