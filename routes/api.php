@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,5 @@ Route::group([
         Route::get('user', [AuthController::class, 'user']);
     });
 });
+
+Route::get('/profile/{user}', [ProfileController::class, 'show']);
