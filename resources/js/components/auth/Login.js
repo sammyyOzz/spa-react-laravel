@@ -3,6 +3,7 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,7 +17,9 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Login() {
+    const history = useHistory();
     const classes = useStyles();
+
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -24,9 +27,15 @@ function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        axios.post("/api/auth/login", user)
-        .then(response => {
-            console.log(response)
+        axios.post("/api/auth/login", user, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'    }
+        })
+        .then(res => {
+            localStorage.setItem('usertoken', res.data.access_token)
+            console.log(res)
+            history.push('/home');
         })
         .catch(error => {
             console.log(error)

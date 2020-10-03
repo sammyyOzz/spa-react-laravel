@@ -45,9 +45,9 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $user): ProfileResource
+    public function show(Profile $profile): ProfileResource
     {
-        return new ProfileResource($user);
+        return new ProfileResource($profile);
     }
 
     /**

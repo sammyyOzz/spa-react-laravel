@@ -34,4 +34,4 @@ Route::group([
     });
 });
 
-Route::get('/profile/{user}', [ProfileController::class, 'show']);
+Route::get('/profile/{profile}', [ProfileController::class, 'show']);

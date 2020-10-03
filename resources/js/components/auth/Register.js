@@ -3,6 +3,7 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Register() {
+    const history = useHistory()
     const classes = useStyles();
     const [user, setUser] = useState({
         name: '',
@@ -26,7 +28,7 @@ function Register() {
         e.preventDefault();
         axios.post("/api/auth/signup", user)
         .then(() => {
-            alert(`congratulations ${user.name} for registering with us`)
+            history.push('/login')
         })
         .catch(() => {
             alert("sorry, your details are invalid")
@@ -62,10 +64,8 @@ function Register() {
                 name="name"
                 label="name"
                 type="text"
-                placeholder="enter your name"
                 variant="outlined"
                 style={{ margin: 8 }}
-                helperText="Name is required"
                 margin="normal"
                 InputLabelProps={{
                   shrink: true,
@@ -78,7 +78,6 @@ function Register() {
                 name="email"
                 label="email"
                 type="email"
-                placeholder="enter your email address"
                 variant="outlined"
                 onChange={handleEmail}
                 /> <br/>
