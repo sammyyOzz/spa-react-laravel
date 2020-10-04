@@ -8,13 +8,16 @@ import
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Home from './components/profile/Home';
+import Navbar from './components/Navigation/Navbar';
+import LandingPage from './components/Landing/LandingPage';
+import Logout from './components/auth/Logout';
 
 
 function App() {
     return(
         <div>
-            <h1>Hello</h1>
             <Router>
+                <Navbar />
                 <Switch>
                     <Route exact path="/signup">
                         <Register />
@@ -24,6 +27,12 @@ function App() {
                     </Route>
                     <Route exact path="/home">
                         <Home />
+                    </Route>
+                    <Route exact path="/logout">
+                        <Logout />
+                    </Route>
+                    <Route exact path="/">
+                        <LandingPage />
                     </Route>
                 </Switch>
             </Router>

@@ -25,16 +25,16 @@ function Login() {
         password: ''
     });
 
+    const header = { headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+    }}
+
     function handleSubmit(e) {
         e.preventDefault();
-        axios.post("/api/auth/login", user, {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Requested-With': 'XMLHttpRequest'    }
-        })
+        axios.post("/api/auth/login", user, header)
         .then(res => {
             localStorage.setItem('usertoken', res.data.access_token)
-            console.log(res)
             history.push('/home');
         })
         .catch(error => {

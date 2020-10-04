@@ -4,6 +4,7 @@ import axios from 'axios';
 function Home() {
 
     const [home, setHome] = useState({ data:{} })
+    const [profile, setProfile] = useState({ data:{} })
 
     useEffect(() => {
         const fetchHome = () => {
@@ -11,7 +12,9 @@ function Home() {
                 headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }
             })
             .then(res => {
-                setHome({...home, data: res.data})
+                console.log(res)
+                setHome({...home, data: res.data.data})
+                setProfile({...profile, data: res.data.data.profile})
             })
             .catch(err => console.log(err))
         }
@@ -20,10 +23,10 @@ function Home() {
     }, []);
 
 
-
     return(
         <div>
             <h2>You are on the home page as {home.data.name} </h2>
+            <h2>Your profile title is {profile.data.title}</h2>
         </div>
     )
 }
