@@ -13,6 +13,7 @@ function Home() {
     return(
         <div>
             <h2>You are on the home page as {home.name} </h2>
+            <h2>Your username is {home.username} </h2>
             <h2>Your profile title is {home.profile_title}</h2>
         </div>
     )

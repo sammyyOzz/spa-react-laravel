@@ -12,8 +12,8 @@ function Profile() {
 
     return (
         <div>
-            <h2>This profile belongs to {user.user_name}</h2>
-            <h2>This profile title is {user.title}</h2>
+            <h2>This profile belongs to {user.name}</h2>
+            <h2>This profile title is {user.profile_title}</h2>
         </div>
     )
 }

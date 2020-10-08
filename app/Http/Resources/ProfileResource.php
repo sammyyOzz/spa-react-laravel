@@ -19,10 +19,13 @@ class ProfileResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'user_name' => $this->user->name,
-            'user_email' => $this->user->email
+            'profile_title' => $this->title,
+            'profile_description' => $this->description,
+            'profile_url' => $this->url,
+            'profile_image' => $this->image,
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+            'username' => $this->user->username,
         ];
     }
 }

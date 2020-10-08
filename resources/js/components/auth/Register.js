@@ -20,6 +20,7 @@ function Register() {
     const [user, setUser] = useState({
         name: '',
         email: '',
+        username: '',
         password: '',
         password_confirmation: ''
     });
@@ -43,6 +44,11 @@ function Register() {
     function handleEmail(e) {
         let value = e.target.value;
         setUser({...user, email: value});
+    }
+
+    function handleUsername(e) {
+        let value = e.target.value;
+        setUser({...user, username: value});
     }
 
     function handlePassword(e) {
@@ -80,6 +86,15 @@ function Register() {
                 type="email"
                 variant="outlined"
                 onChange={handleEmail}
+                /> <br/>
+
+                <TextField
+                required
+                name="username"
+                label="username"
+                type="text"
+                variant="outlined"
+                onChange={handleUsername}
                 /> <br/>
 
                 <TextField

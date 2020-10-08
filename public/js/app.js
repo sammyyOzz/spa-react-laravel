@@ -74801,6 +74801,7 @@ function Register() {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     name: '',
     email: '',
+    username: '',
     password: '',
     password_confirmation: ''
   }),
@@ -74828,6 +74829,13 @@ function Register() {
     var value = e.target.value;
     setUser(_objectSpread(_objectSpread({}, user), {}, {
       email: value
+    }));
+  }
+
+  function handleUsername(e) {
+    var value = e.target.value;
+    setUser(_objectSpread(_objectSpread({}, user), {}, {
+      username: value
     }));
   }
 
@@ -74872,6 +74880,13 @@ function Register() {
     type: "email",
     variant: "outlined",
     onChange: handleEmail
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    required: true,
+    name: "username",
+    label: "username",
+    type: "text",
+    variant: "outlined",
+    onChange: handleUsername
   }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_3__["default"], {
     name: "password",
     label: "Password",
@@ -74919,7 +74934,7 @@ function Home() {
     }
   };
   var home = Object(_Hooks_HttpRequests__WEBPACK_IMPORTED_MODULE_1__["useAxiosGet"])(url, headers);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "You are on the home page as ", home.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Your profile title is ", home.profile_title));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "You are on the home page as ", home.name, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Your username is ", home.username, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Your profile title is ", home.profile_title));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Home);
@@ -74949,7 +74964,7 @@ function Profile() {
 
   var url = "http://127.0.0.1:8000/api/profile/".concat(id);
   var user = Object(_Hooks_HttpRequests__WEBPACK_IMPORTED_MODULE_2__["useAxiosGet"])(url);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "This profile belongs to ", user.user_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "This profile title is ", user.title));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "This profile belongs to ", user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "This profile title is ", user.profile_title));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Profile);
