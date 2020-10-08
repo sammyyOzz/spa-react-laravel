@@ -11,6 +11,7 @@ import Home from './components/profile/Home';
 import Navbar from './components/Navigation/Navbar';
 import LandingPage from './components/Landing/LandingPage';
 import Logout from './components/auth/Logout';
+import Profile from './components/profile/Profile';
 
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
             <Router>
                 <Navbar />
                 <Switch>
+                    <Route exact path="/">
+                        <LandingPage />
+                    </Route>
                     <Route exact path="/signup">
                         <Register />
                     </Route>
@@ -31,8 +35,8 @@ function App() {
                     <Route exact path="/logout">
                         <Logout />
                     </Route>
-                    <Route exact path="/">
-                        <LandingPage />
+                    <Route exact path="/profile/:id">
+                        <Profile />
                     </Route>
                 </Switch>
             </Router>
