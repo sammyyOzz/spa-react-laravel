@@ -24,18 +24,16 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     return (
-        <Box>
-            <AppBar position="static">
-                <Toolbar>
-                    <Button color="inherit" component={Link} to="/">SinglePageApp</Button>
-                    <Button color="inherit" component={Link} to="/signup">Signup</Button>
-                    <Button color="inherit" component={Link} to="/login">Login</Button>
-                    <Button color="inherit" component={Link} to="/home">Home</Button>
-                    <Button color="inherit" component={Link} to="/logout">Logout</Button>
-                    <Button color="inherit" component={Link} to="/profile/1">Profile</Button>
-                </Toolbar>
-            </AppBar>
-        </Box>
+        <AppBar>
+            <Toolbar className="nav-container">
+                <Button color="inherit" component={Link} to="/">SinglePageApp</Button>
+                <Button color="inherit" component={Link} to="/signup">Signup</Button>
+                <Button color="inherit" component={Link} to="/login">Login</Button>
+                <Button color="inherit" component={Link} to="/home">Home</Button>
+                <Button color="inherit" component={Link} to="/logout">Logout</Button>
+                <Button color="inherit" component={Link} to="/profile/1">Profile</Button>
+            </Toolbar>
+        </AppBar>
     )
 }
 

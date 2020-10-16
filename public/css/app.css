@@ -1,0 +1,12 @@
+body {
+    background-color: rgb(231, 231, 212);
+}
+
+.container {
+    margin: 90px auto 0 auto;
+    max-width: 925px;
+}
+
+.nav-container {
+    margin: auto;
+}
