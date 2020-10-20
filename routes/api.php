@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -31,7 +32,9 @@ Route::group([
     ], function() {
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
+        Route::post('/p', [PostController::class, 'store']);
     });
 });
 
 Route::get('/profile/{profile}', [ProfileController::class, 'show']);
+

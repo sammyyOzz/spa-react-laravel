@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,6 +18,15 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center'
       },
     },
+    button: {
+        width: '46ch',
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 800,
+        minHeight: 450
+      },
   }));
 
 function Login() {
@@ -54,25 +67,34 @@ function Login() {
 
     return(
         <div>
-            <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off" >
-                <TextField
-                required
-                label="email"
-                type="email"
-                placeholder="enter your email address"
-                variant="outlined"
-                onChange={handleEmail}
-                /> <br/>
+            <Paper className={classes.paper}>
+                <Grid container spacing={10}>
+                    <Grid item xs />
+                    <Grid item xs>
+                        <Typography variant="h4">Login</Typography>
+                        <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off" >
+                            <TextField
+                            required
+                            label="email"
+                            type="email"
+                            placeholder="enter your email address"
+                            variant="outlined"
+                            onChange={handleEmail}
+                            /> <br/>
 
-                <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
-                onChange={handlePassword}
-                /> <br/>
+                            <TextField
+                            label="Password"
+                            type="password"
+                            variant="outlined"
+                            onChange={handlePassword}
+                            /> <br/>
 
-                <Button type = "submit" variant="contained" color="primary">Login</Button>
-            </form>
+                            <Button className={classes.button} fullWidth type="submit" variant="contained" color="primary">Login</Button>
+                        </form>
+                    </Grid>
+                    <Grid item xs />
+                </Grid>
+            </Paper>
         </div>
     )
 }

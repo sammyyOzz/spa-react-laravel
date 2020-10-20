@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useAxiosGet } from '../Hooks/HttpRequests';
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
       margin: 'auto',
       maxWidth: 800,
     },
+    paperPosts: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 800,
+        minHeight: 250
+      },
     image: {
       width: 140,
       height: 140,
@@ -46,13 +52,18 @@ function Profile() {
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <Grid container spacing={10}>
-                    <Grid item>
+
+                    {/* profile Image */}
+                    <Grid item xs={3}>
                         <ButtonBase className={classes.image}>
                             <img className={classes.img} alt="profile image" src={user.profile_image} />
                         </ButtonBase>
                     </Grid>
-                    <Grid item xs={10} sm container>
+
+                    <Grid item xs={9} container>
                         <Grid item xs container direction="column" spacing={2}>
+
+                            {/* username, description... */}
                             <Grid item xs>
                                 <Typography gutterBottom variant="h4">
                                     {user.username}
@@ -67,20 +78,30 @@ function Profile() {
                                     {user.profile_description}
                                 </Typography>
                             </Grid>
+
+                            {/* profile url */}
                             <Grid item>
                                 <Typography variant="body2" style={{ cursor: 'pointer' }} color="textSecondary">
                                     {user.profile_url}
                                 </Typography>
                             </Grid>
                         </Grid>
+
+                        {/* add post button */}
                         <Grid item>
-                            <Button size="small" variant="outlined" href="#">
+                            <Button size="small" variant="outlined" color="primary" component={Link} to="/post">
                                 Add Post
                             </Button>
                         </Grid>
                     </Grid>
                 </Grid>
             </Paper>
+
+            <div className="" style={{marginTop: "20px"}}>
+                <Paper className={classes.paperPosts}>
+
+                </Paper>
+            </div>
         </div>
     )
 }

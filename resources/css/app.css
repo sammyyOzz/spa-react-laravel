@@ -9,4 +9,5 @@ body {
 
 .nav-container {
     margin: auto;
+    max-width: 925px;
 }

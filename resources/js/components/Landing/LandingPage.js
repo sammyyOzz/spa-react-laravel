@@ -1,10 +1,15 @@
 import React from 'react'
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 function LandingPage() {
 
     return (
         <div>
-            <h1>This is the landing page</h1>
+            <Typography variant="h1" color="primary">
+                This is the Landing Page
+            </Typography>
+            <Button variant="contained" color="primary">A button</Button>
         </div>
     )
 }
