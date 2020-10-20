@@ -76694,8 +76694,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
 /* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./theme */ "./resources/js/theme.js");
 /* harmony import */ var _components_post_CreatePost__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/post/CreatePost */ "./resources/js/components/post/CreatePost.js");
-/* harmony import */ var _components_post_UploadPost__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/post/UploadPost */ "./resources/js/components/post/UploadPost.js");
-
 
 
 
@@ -76742,7 +76740,7 @@ function App() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/post",
-    component: _components_post_UploadPost__WEBPACK_IMPORTED_MODULE_13__["default"]
+    component: _components_post_CreatePost__WEBPACK_IMPORTED_MODULE_12__["default"]
   }))))));
 }
 
@@ -77414,14 +77412,6 @@ function CreatePost() {
       post = _useState2[0],
       setPost = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
-    caption: "",
-    upload_file: null
-  }),
-      _useState4 = _slicedToArray(_useState3, 2),
-      _final = _useState4[0],
-      setFinal = _useState4[1];
-
   var headers = {
     headers: {
       'Authorization': "Bearer ".concat(localStorage.usertoken)
@@ -77445,34 +77435,21 @@ function CreatePost() {
   };
 
   var handleUploadFile = function handleUploadFile(e) {
-    // const { upload_file } = { ...post };
-    // const currentState = upload_file;
-    // const { name, files } = e.target;
-    // currentState[name] = files;
-    // setPost({...post, upload_file: currentState});
-    var fileData = e.target.files[0];
-    setPost(_objectSpread(_objectSpread({}, post), {}, {
-      upload_file: {
-        fileData: fileData
-      }
-    })); // let file_reader = new FileReader();
-    // // Get the actual file itself
-    // let file = e.target.files[0];
-    // file_reader.onload = () => {
-    // // After uploading the file
-    // // appending the file to our state array
-    // // set the object keys and values accordingly
-    // setPost({...post, upload_file: file_reader.result });
-    // };
-    // // reading the actual uploaded file
-    // file_reader.readAsDataURL(file);
-    // let files = e.target.files;
-    // let reader = new FileReader();
-    // reader.readAsDataURL(files[0]);
-    // reader.onload=(e) => {
-    //     // console.warn("img data ", e.target.result)
-    //     setPost({...post, upload_file: e.target.result });
-    // }
+    var file_reader = new FileReader(); // Get the actual file itself
+
+    var file = e.target.files[0];
+
+    file_reader.onload = function () {
+      // After uploading the file
+      // appending the file to our state array
+      // set the object keys and values accordingly
+      setPost(_objectSpread(_objectSpread({}, post), {}, {
+        upload_file: file_reader.result
+      }));
+    }; // reading the actual uploaded file
+
+
+    file_reader.readAsDataURL(file);
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -77513,125 +77490,6 @@ function CreatePost() {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (CreatePost);
-
-/***/ }),
-
-/***/ "./resources/js/components/post/UploadPost.js":
-/*!****************************************************!*\
-  !*** ./resources/js/components/post/UploadPost.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FileUploadComponent; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-var FileUploadComponent = /*#__PURE__*/function (_Component) {
-  _inherits(FileUploadComponent, _Component);
-
-  var _super = _createSuper(FileUploadComponent);
-
-  function FileUploadComponent(props) {
-    var _this;
-
-    _classCallCheck(this, FileUploadComponent);
-
-    _this = _super.call(this, props);
-    _this.state = {
-      image: ''
-    };
-    _this.onFormSubmit = _this.onFormSubmit.bind(_assertThisInitialized(_this));
-    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
-    _this.fileUpload = _this.fileUpload.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(FileUploadComponent, [{
-    key: "onFormSubmit",
-    value: function onFormSubmit(e) {
-      e.preventDefault();
-      this.fileUpload(this.state.image);
-    }
-  }, {
-    key: "onChange",
-    value: function onChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-    }
-  }, {
-    key: "createImage",
-    value: function createImage(file) {
-      var _this2 = this;
-
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        _this2.setState({
-          image: e.target.result
-        });
-      };
-
-      reader.readAsDataURL(file);
-    }
-  }, {
-    key: "fileUpload",
-    value: function fileUpload(image) {
-      var url = '/api/auth/p';
-      var formData = {
-        file: this.state.image
-      };
-      return Object(axios__WEBPACK_IMPORTED_MODULE_1__["post"])(url, formData).then(function (response) {
-        return console.log(response);
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.onFormSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "React js Laravel File Upload Tutorial"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "file",
-        onChange: this.onChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "submit"
-      }, "Upload"));
-    }
-  }]);
-
-  return FileUploadComponent;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
 
 /***/ }),
 

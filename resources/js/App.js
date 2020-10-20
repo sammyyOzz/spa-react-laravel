@@ -15,7 +15,6 @@ import Profile from './components/profile/Profile';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme'
 import CreatePost from './components/post/CreatePost';
-import UploadPost from './components/post/UploadPost';
 
 
 function App() {
@@ -32,7 +31,7 @@ function App() {
                             <Route exact path="/home" component={Home} />
                             <Route exact path="/logout" component={Logout} />
                             <Route exact path="/profile/:id" component={Profile} />
-                            <Route exact path="/post" component={UploadPost} />
+                            <Route exact path="/post" component={CreatePost} />
                         </Switch>
                     </div>
                 </Router>

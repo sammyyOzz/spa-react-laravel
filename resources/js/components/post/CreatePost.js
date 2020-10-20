@@ -36,11 +36,6 @@ function CreatePost() {
         upload_file: null
     });
 
-    const [final, setFinal] = useState({
-        caption:"",
-        upload_file: null
-    })
-
     const headers = { headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }}
 
     function handleSubmit(e) {
@@ -59,40 +54,20 @@ function CreatePost() {
     }
 
     const handleUploadFile = e => {
-        // const { upload_file } = { ...post };
-        // const currentState = upload_file;
-        // const { name, files } = e.target;
-        // currentState[name] = files;
-        // setPost({...post, upload_file: currentState});
+        let file_reader = new FileReader();
 
-        let fileData = e.target.files[0]
-        setPost({...post, upload_file: {fileData}});
+        // Get the actual file itself
+        let file = e.target.files[0];
 
+        file_reader.onload = () => {
+            // After uploading the file
+            // appending the file to our state array
+            // set the object keys and values accordingly
+            setPost({...post, upload_file: file_reader.result });
+        };
 
-
-        // let file_reader = new FileReader();
-        // // Get the actual file itself
-        // let file = e.target.files[0];
-        // file_reader.onload = () => {
-        // // After uploading the file
-        // // appending the file to our state array
-        // // set the object keys and values accordingly
-        // setPost({...post, upload_file: file_reader.result });
-        // };
-        // // reading the actual uploaded file
-        // file_reader.readAsDataURL(file);
-
-
-
-        // let files = e.target.files;
-
-        // let reader = new FileReader();
-        // reader.readAsDataURL(files[0]);
-
-        // reader.onload=(e) => {
-        //     // console.warn("img data ", e.target.result)
-        //     setPost({...post, upload_file: e.target.result });
-        // }
+        // reading the actual uploaded file
+        file_reader.readAsDataURL(file);
     }
 
     return(

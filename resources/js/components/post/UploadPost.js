@@ -6,15 +6,23 @@ export default class FileUploadComponent extends Component
    constructor(props) {
       super(props);
       this.state ={
+        caption: '',
         image: ''
       }
       this.onFormSubmit = this.onFormSubmit.bind(this)
       this.onChange = this.onChange.bind(this)
+      this.onCaptionChange = this.onCaptionChange.bind(this)
       this.fileUpload = this.fileUpload.bind(this)
     }
     onFormSubmit(e){
       e.preventDefault()
       this.fileUpload(this.state.image);
+    }
+    onCaptionChange(e) {
+        e.preventDefault()
+        this.setState({
+            caption: e.target.value
+        })
     }
     onChange(e) {
       let files = e.target.files || e.dataTransfer.files;
@@ -33,8 +41,12 @@ export default class FileUploadComponent extends Component
     }
     fileUpload(image){
       const url = '/api/auth/p';
-      const formData = {file: this.state.image}
-      return  post(url, formData)
+      const formData = {
+        caption: this.state.caption,
+        upload_file: this.state.image
+      }
+      const headers = { headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }}
+      return  post(url, formData, headers)
               .then(response => console.log(response))
     }
 
@@ -43,7 +55,8 @@ export default class FileUploadComponent extends Component
       return(
 
          <form onSubmit={this.onFormSubmit}>
-        <h1>React js Laravel File Upload Tutorial</h1>
+        <h1>Upload an image</h1>
+        <input type="text" onChange={this.onCaptionChange} />
         <input type="file"  onChange={this.onChange} />
         <button type="submit">Upload</button>
       </form>
