@@ -24,3 +24,24 @@ export const useAxiosGet = (url, headers) => {
 
     return result
 }
+
+export const useAxiosGetPost = (url, headers) => {
+
+    const [info, setInfo] = useState(null)
+
+    useEffect(() => {
+        const fetchRequest = () => {
+            axios.get(url, headers)
+            .then(res => {
+                setInfo(res.data)
+            })
+            .catch(err => console.log(err))
+        }
+
+        fetchRequest();
+    }, [url]);
+
+    // const result = info.data
+
+    return info
+}

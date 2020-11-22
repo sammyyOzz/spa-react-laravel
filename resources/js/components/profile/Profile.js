@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
-import { useAxiosGet } from '../Hooks/HttpRequests';
+import { useAxiosGet, useAxiosGetPost } from '../Hooks/HttpRequests';
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Paper from '@material-ui/core/Paper';
@@ -39,11 +39,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Profile() {
-
     const classes = useStyles();
     const { id } = useParams()
     const url = `http://127.0.0.1:8000/api/profile/${id}`
     const user = useAxiosGet(url)
+
+    const postUrl = `http://127.0.0.1:8000/api/posts/${id}`
+    const posts = useAxiosGetPost(postUrl)
+    console.log(posts)
+
     if(! user.profile_image) {
         user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg'
     }
@@ -99,7 +103,10 @@ function Profile() {
 
             <div className="" style={{marginTop: "20px"}}>
                 <Paper className={classes.paperPosts}>
-
+                    <Typography variant="h4">Posts</Typography>
+                        { posts && posts.map(post => (
+                            <p>{post?.caption}</p>
+                        )) }
                 </Paper>
             </div>
         </div>

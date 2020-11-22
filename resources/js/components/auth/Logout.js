@@ -19,6 +19,10 @@ function Logout() {
                     type: 'SET_USER',
                     user: false
                 })
+                dispatch({
+                    type: 'SET_USER_ID',
+                    userId: null
+                })
                 localStorage.removeItem('usertoken')
                 history.push('/')
             })

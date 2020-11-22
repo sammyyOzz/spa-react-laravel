@@ -52,15 +52,13 @@ function Login() {
         .then(res => {
             localStorage.setItem('usertoken', res.data.access_token)
             history.push('/home');
-        })
-        .catch(error => {
-            console.log(error)
-        })
-        .then(() => {
             dispatch({
                 type: 'SET_USER',
                 user: true
             })
+        })
+        .catch(error => {
+            console.log(error)
         })
     }
 

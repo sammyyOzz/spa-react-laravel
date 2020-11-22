@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useStateValue } from '../../StateProvider';
 import { useAxiosGet } from '../Hooks/HttpRequests';
 
 
@@ -9,6 +10,14 @@ function Home() {
 
     const home = useAxiosGet(url, headers)
 
+    const [ {}, dispatch] = useStateValue()
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_USER_ID',
+            userId: home.id
+        })
+    }, [home])
 
     return(
         <div>

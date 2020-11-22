@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
 
 const Navbar = () => {
     const classes = useStyles();
-    const [ { user }, dispatch ] = useStateValue();
+    const [ { user, userId }, dispatch ] = useStateValue();
 
     return (
         <div className={classes.root}>
@@ -42,20 +42,35 @@ const Navbar = () => {
                                 <Button color="inherit" component={Link} to="/">SinglePageApp</Button>
                             </div>
                             <div>
-                                <Button className={ user && classes.hideButton} color="inherit" component={Link} to="/signup">
-                                    Signup
+                                <Button
+                                    className={ user && classes.hideButton}
+                                    color="inherit" component={Link}
+                                    to="/signup">
+                                        Signup
                                 </Button>
-                                <Button className={ user && classes.hideButton} color="inherit" component={Link} to="/login">
-                                    Login
+                                <Button
+                                    className={ user && classes.hideButton}
+                                    color="inherit" component={Link}
+                                    to="/login">
+                                        Login
                                 </Button>
-                                <Button className={ ! user && classes.hideButton} color="inherit" component={Link} to="/home">
-                                    Home
+                                <Button
+                                    className={ ! user && classes.hideButton}
+                                    color="inherit" component={Link}
+                                    to="/home">
+                                        Home
                                 </Button>
-                                <Button className={ ! user && classes.hideButton} color="inherit" component={Link} to="/profile/1">
-                                    Profile
+                                <Button
+                                    className={ ! user && classes.hideButton}
+                                    color="inherit" component={Link}
+                                    to={`/profile/${userId}`}>
+                                        Profile
                                 </Button>
-                                <Button className={ ! user && classes.hideButton} color="inherit" component={Link} to="/logout">
-                                    Logout
+                                <Button
+                                    className={ ! user && classes.hideButton}
+                                    color="inherit" component={Link}
+                                    to="/logout">
+                                        Logout
                                 </Button>
                             </div>
                         </div>
