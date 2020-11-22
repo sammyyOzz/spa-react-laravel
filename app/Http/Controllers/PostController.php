@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -26,5 +26,10 @@ class PostController extends Controller
         $fileupload->save();
 
         return response()->json('Successfully added');
+    }
+
+    public function index(User $user)
+    {
+        return $user->posts;
     }
 }
