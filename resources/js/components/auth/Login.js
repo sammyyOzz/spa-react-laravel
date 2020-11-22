@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { useStateValue } from '../../StateProvider';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +34,8 @@ function Login() {
     const history = useHistory();
     const classes = useStyles();
 
+    const [ {}, dispatch ] = useStateValue();
+
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -52,6 +55,12 @@ function Login() {
         })
         .catch(error => {
             console.log(error)
+        })
+        .then(() => {
+            dispatch({
+                type: 'SET_USER',
+                user: true
+            })
         })
     }
 

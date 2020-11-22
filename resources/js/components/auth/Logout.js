@@ -1,8 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import { useStateValue } from '../../StateProvider';
 
 function Logout() {
+
+    const [ {}, dispatch ] = useStateValue();
 
     const history = useHistory()
 
@@ -11,7 +14,14 @@ function Logout() {
             axios.get('http://127.0.0.1:8000/api/auth/logout', {
                 headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }
             })
-            .then(() => history.push('/'))
+            .then(() => {
+                dispatch({
+                    type: 'SET_USER',
+                    user: false
+                })
+                localStorage.removeItem('usertoken')
+                history.push('/')
+            })
             .catch(err => console.log(err))
         }
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import
     {   BrowserRouter as Router,
@@ -15,9 +15,26 @@ import Profile from './components/profile/Profile';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme'
 import CreatePost from './components/post/CreatePost';
+import { StateProvider, useStateValue } from './StateProvider';
+import reducer, { initialState } from './reducer';
 
 
 function App() {
+    const [ {}, dispatch ] = useStateValue();
+
+    useEffect(() => {
+        const loadUserState = () => {
+            if (localStorage.usertoken) {
+                dispatch({
+                    type: 'SET_USER',
+                    user: true
+                })
+            }
+        }
+
+        loadUserState();
+    }, [])
+
     return(
         <ThemeProvider theme={theme}>
             <div>
@@ -43,5 +60,9 @@ function App() {
 export default App;
 
 if (document.getElementById('root')) {
-    ReactDOM.render(<App />, document.getElementById('root'));
+    ReactDOM.render(
+        <StateProvider initialState={initialState} reducer={reducer}>
+            <App />
+        </StateProvider>,
+        document.getElementById('root'));
 }
