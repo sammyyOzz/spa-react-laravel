@@ -37,5 +37,5 @@ Route::group([
 });
 
 Route::get('/profile/{profile}', [ProfileController::class, 'show']);
-Route::get('/posts/{user}', [PostController::class, 'index']);
+Route::get('/{user}/posts', [PostController::class, 'index']);
 

@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: '100%',
       borderRadius: '50%'
     },
+    postImg: {
+        // objectFit: 'contain',
+        height: '100%',
+        width: '100%'
+    }
   }));
 
 
@@ -44,9 +49,8 @@ function Profile() {
     const url = `http://127.0.0.1:8000/api/profile/${id}`
     const user = useAxiosGet(url)
 
-    const postUrl = `http://127.0.0.1:8000/api/posts/${id}`
+    const postUrl = `http://127.0.0.1:8000/api/${id}/posts`
     const posts = useAxiosGetPost(postUrl)
-    console.log(posts)
 
     if(! user.profile_image) {
         user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg'
@@ -101,12 +105,21 @@ function Profile() {
                 </Grid>
             </Paper>
 
+            {/* posts section */}
             <div className="" style={{marginTop: "20px"}}>
                 <Paper className={classes.paperPosts}>
                     <Typography variant="h4">Posts</Typography>
-                        { posts && posts.map(post => (
-                            <p>{post?.caption}</p>
-                        )) }
+                        <Grid container spacing={1}>
+                            { posts && posts.map(post => (
+                                <Grid key={post.id} item xs={4} md={3}>
+                                    <img className={classes.postImg}
+                                        alt="post"
+                                        src={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
+                                    />
+                                </Grid>
+                            )) }
+                        </Grid>
+
                 </Paper>
             </div>
         </div>

@@ -43,31 +43,31 @@ const Navbar = () => {
                             </div>
                             <div>
                                 <Button
-                                    className={ user && classes.hideButton}
+                                    className={ user ? classes.hideButton : ""}
                                     color="inherit" component={Link}
                                     to="/signup">
                                         Signup
                                 </Button>
                                 <Button
-                                    className={ user && classes.hideButton}
+                                    className={ user ? classes.hideButton : ""}
                                     color="inherit" component={Link}
                                     to="/login">
                                         Login
                                 </Button>
                                 <Button
-                                    className={ ! user && classes.hideButton}
+                                    className={ ! user ? classes.hideButton : ""}
                                     color="inherit" component={Link}
                                     to="/home">
                                         Home
                                 </Button>
                                 <Button
-                                    className={ ! user && classes.hideButton}
+                                    className={ ! user ? classes.hideButton : ""}
                                     color="inherit" component={Link}
                                     to={`/profile/${userId}`}>
                                         Profile
                                 </Button>
                                 <Button
-                                    className={ ! user && classes.hideButton}
+                                    className={ ! user ? classes.hideButton : ""}
                                     color="inherit" component={Link}
                                     to="/logout">
                                         Logout

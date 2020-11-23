@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
+import { useStateValue } from '../../StateProvider';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +32,8 @@ function CreatePost() {
     const history = useHistory();
     const classes = useStyles();
 
+    const [{userId}, dispatch] = useStateValue()
+
     const [post, setPost] = useState({
         caption: "",
         upload_file: null
@@ -43,7 +46,7 @@ function CreatePost() {
 
         axios.post("/api/auth/p", post, headers)
         .then(res => {
-            history.push('/profile/1');
+            history.push(`/profile/${userId}`);
         })
         .catch(err => console.log(err))
     }

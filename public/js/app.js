@@ -77307,27 +77307,27 @@ var Navbar = function Navbar() {
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
     to: "/"
   }, "SinglePageApp")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    className: user && classes.hideButton,
+    className: user ? classes.hideButton : "",
     color: "inherit",
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
     to: "/signup"
   }, "Signup"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    className: user && classes.hideButton,
+    className: user ? classes.hideButton : "",
     color: "inherit",
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
     to: "/login"
   }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    className: !user && classes.hideButton,
+    className: !user ? classes.hideButton : "",
     color: "inherit",
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
     to: "/home"
   }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    className: !user && classes.hideButton,
+    className: !user ? classes.hideButton : "",
     color: "inherit",
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
     to: "/profile/".concat(userId)
   }, "Profile"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    className: !user && classes.hideButton,
+    className: !user ? classes.hideButton : "",
     color: "inherit",
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
     to: "/logout"
@@ -77775,6 +77775,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js");
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
 /* harmony import */ var _material_ui_core_Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Input */ "./node_modules/@material-ui/core/esm/Input/index.js");
+/* harmony import */ var _StateProvider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../StateProvider */ "./resources/js/StateProvider.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -77792,6 +77793,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -77826,6 +77828,11 @@ function CreatePost() {
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["useHistory"])();
   var classes = useStyles();
 
+  var _useStateValue = Object(_StateProvider__WEBPACK_IMPORTED_MODULE_10__["useStateValue"])(),
+      _useStateValue2 = _slicedToArray(_useStateValue, 2),
+      userId = _useStateValue2[0].userId,
+      dispatch = _useStateValue2[1];
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     caption: "",
     upload_file: null
@@ -77843,7 +77850,7 @@ function CreatePost() {
   function handleSubmit(e) {
     e.preventDefault();
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/auth/p", post, headers).then(function (res) {
-      history.push('/profile/1');
+      history.push("/profile/".concat(userId));
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -78029,6 +78036,11 @@ var useStyles = _material_ui_core_styles_makeStyles__WEBPACK_IMPORTED_MODULE_4__
       maxWidth: '100%',
       maxHeight: '100%',
       borderRadius: '50%'
+    },
+    postImg: {
+      // objectFit: 'contain',
+      height: '100%',
+      width: '100%'
     }
   };
 });
@@ -78041,9 +78053,8 @@ function Profile() {
 
   var url = "http://127.0.0.1:8000/api/profile/".concat(id);
   var user = Object(_Hooks_HttpRequests__WEBPACK_IMPORTED_MODULE_2__["useAxiosGet"])(url);
-  var postUrl = "http://127.0.0.1:8000/api/posts/".concat(id);
+  var postUrl = "http://127.0.0.1:8000/api/".concat(id, "/posts");
   var posts = Object(_Hooks_HttpRequests__WEBPACK_IMPORTED_MODULE_2__["useAxiosGetPost"])(postUrl);
-  console.log(posts);
 
   if (!user.profile_image) {
     user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg';
@@ -78119,9 +78130,21 @@ function Profile() {
     className: classes.paperPosts
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__["default"], {
     variant: "h4"
-  }, "Posts"), posts && posts.map(function (post) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, post === null || post === void 0 ? void 0 : post.caption);
-  }))));
+  }, "Posts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    container: true,
+    spacing: 1
+  }, posts && posts.map(function (post) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      key: post.id,
+      item: true,
+      xs: 4,
+      md: 3
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      className: classes.postImg,
+      alt: "post",
+      src: __webpack_require__("./storage/app/public sync recursive ^\\.\\/uploads.*$")("./uploads".concat(post.upload_file))
+    }));
+  })))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Profile);
@@ -78202,6 +78225,146 @@ var theme = _material_ui_core_styles_createMuiTheme__WEBPACK_IMPORTED_MODULE_0__
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (theme);
+
+/***/ }),
+
+/***/ "./storage/app/public sync recursive ^\\.\\/uploads.*$":
+/*!*************************************************!*\
+  !*** ./storage/app/public sync ^\.\/uploads.*$ ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./uploads1606075642.jpeg": "./storage/app/public/uploads1606075642.jpeg",
+	"./uploads1606075669.jpeg": "./storage/app/public/uploads1606075669.jpeg",
+	"./uploads1606075769.png": "./storage/app/public/uploads1606075769.png",
+	"./uploads1606076189.jpeg": "./storage/app/public/uploads1606076189.jpeg",
+	"./uploads1606076238.jpeg": "./storage/app/public/uploads1606076238.jpeg",
+	"./uploads1606076280.jpeg": "./storage/app/public/uploads1606076280.jpeg",
+	"./uploads1606077067.jpeg": "./storage/app/public/uploads1606077067.jpeg",
+	"./uploads1606077122.jpeg": "./storage/app/public/uploads1606077122.jpeg",
+	"./uploads1606077394.jpeg": "./storage/app/public/uploads1606077394.jpeg"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./storage/app/public sync recursive ^\\.\\/uploads.*$";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606075642.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606075642.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606075642.jpeg?49958c3eb1d00e94fcd533bb5433eea6";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606075669.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606075669.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606075669.jpeg?70d45cc3ffdf18fbffc6ced31e0870be";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606075769.png":
+/*!**************************************************!*\
+  !*** ./storage/app/public/uploads1606075769.png ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606075769.png?545fc233b41086291e3d76cf1820d482";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606076189.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606076189.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606076189.jpeg?934c1c59623e5fb2facf0f3086a02792";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606076238.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606076238.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606076238.jpeg?4dd6462d7096cb6c989581eea5449102";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606076280.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606076280.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606076280.jpeg?e8d35d0df68a24ece9e9b16f95f629b4";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606077067.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606077067.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606077067.jpeg?cb41da46ac5d0126acf7d09dd2197db0";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606077122.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606077122.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606077122.jpeg?b3089a2c2aaca9f9deaf75e663cf55c6";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606077394.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606077394.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606077394.jpeg?d709e1f839d68e27bbc14a938f843d41";
 
 /***/ }),
 
