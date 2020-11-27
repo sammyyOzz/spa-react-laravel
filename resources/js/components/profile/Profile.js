@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams, Link } from 'react-router-dom';
 import { useAxiosGet, useAxiosGetPost } from '../Hooks/HttpRequests';
 import Grid from '@material-ui/core/Grid'
@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
+import PostModal from './PostModal';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,8 +38,14 @@ const useStyles = makeStyles((theme) => ({
     },
     postImg: {
         // objectFit: 'contain',
-        height: '100%',
-        width: '100%'
+        height: 180,
+        width: '100%',
+        borderRadius: 30
+    },
+    postImgSub: {
+        height: 130,
+        width: '100%',
+        borderRadius: 30
     }
   }));
 
@@ -109,15 +116,36 @@ function Profile() {
             <div className="" style={{marginTop: "20px"}}>
                 <Paper className={classes.paperPosts}>
                     <Typography variant="h4">Posts</Typography>
-                        <Grid container spacing={1}>
-                            { posts && posts.map(post => (
-                                <Grid key={post.id} item xs={4} md={3}>
-                                    <img className={classes.postImg}
-                                        alt="post"
-                                        src={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
-                                    />
-                                </Grid>
-                            )) }
+                    <PostModal />
+                        <Grid container spacing={3}>
+                            <Grid item md={2} />
+                            {
+                                posts && posts.map((post, index) => {
+                                    if (index % 2 === 0) {
+                                        return (
+                                            <Grid key={post.id} item xs={6} md={3}>
+                                                <img className={classes.postImg}
+                                                    alt="post"
+                                                    src={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
+                                                />
+                                            </Grid>
+                                        )
+                                    } else {
+                                        return (
+                                            <Grid item container key={post.id} xs={6} md={3}>
+                                                <Grid item xs={4} />
+                                                <Grid item xs={8}>
+                                                    <img className={classes.postImgSub}
+                                                        alt="post"
+                                                        src={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        )
+                                    }
+                                })
+                            }
+                            <Grid item md={2} />
                         </Grid>
 
                 </Paper>
