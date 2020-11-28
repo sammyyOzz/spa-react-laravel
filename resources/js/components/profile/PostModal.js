@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -10,15 +12,28 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+//   paper: {
+    // backgroundColor: theme.palette.background.paper,
+    // boxShadow: theme.shadows[5],
+    // padding: theme.spacing(2, 4, 3),
+//   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    maxHeight: '80%',
+    maxWidth: '80%',
+    display: 'flex'
   },
+
+  openModalImg: {
+    objectFit: 'contain'
+  },
+  paperRight: {
+      height: '100%',
+      backgroundColor: 'white',
+      color: 'black'
+  }
 }));
 
-function PostModal() {
+function PostModal({ imgSrc, imgStyle }) {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -33,9 +48,13 @@ function PostModal() {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        react-transition-group
-      </button>
+
+      <img
+        src={imgSrc} alt=""
+        className={imgStyle}
+        onClick={handleOpen}
+     />
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -50,8 +69,15 @@ function PostModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
+
+            <img src={imgSrc} className={classes.openModalImg} alt=""/>
+            {/* <Paper className={classes.paperRight}>
+                <Typography variant="h5">Hello</Typography>
+            </Paper> */}
+
+            {/* <h2 id="transition-modal-title">Transition modal</h2>
+            <p id="transition-modal-description">react-transition-group animates me.</p> */}
+
           </div>
         </Fade>
       </Modal>

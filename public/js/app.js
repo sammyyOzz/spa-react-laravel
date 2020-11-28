@@ -78363,6 +78363,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Modal */ "./node_modules/@material-ui/core/esm/Modal/index.js");
 /* harmony import */ var _material_ui_core_Backdrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Backdrop */ "./node_modules/@material-ui/core/esm/Backdrop/index.js");
 /* harmony import */ var _material_ui_core_Fade__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Fade */ "./node_modules/@material-ui/core/esm/Fade/index.js");
+/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js");
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -78380,6 +78382,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])(function (theme) {
   return {
     modal: {
@@ -78387,16 +78391,30 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
       alignItems: 'center',
       justifyContent: 'center'
     },
+    //   paper: {
+    // backgroundColor: theme.palette.background.paper,
+    // boxShadow: theme.shadows[5],
+    // padding: theme.spacing(2, 4, 3),
+    //   },
     paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3)
+      maxHeight: '80%',
+      maxWidth: '80%',
+      display: 'flex'
+    },
+    openModalImg: {
+      objectFit: 'contain'
+    },
+    paperRight: {
+      height: '100%',
+      backgroundColor: 'white',
+      color: 'black'
     }
   };
 });
 
-function PostModal() {
+function PostModal(_ref) {
+  var imgSrc = _ref.imgSrc,
+      imgStyle = _ref.imgStyle;
   var classes = useStyles();
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false),
@@ -78412,10 +78430,12 @@ function PostModal() {
     setOpen(false);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    type: "button",
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: imgSrc,
+    alt: "",
+    className: imgStyle,
     onClick: handleOpen
-  }, "react-transition-group"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Modal__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Modal__WEBPACK_IMPORTED_MODULE_2__["default"], {
     "aria-labelledby": "transition-modal-title",
     "aria-describedby": "transition-modal-description",
     className: classes.modal,
@@ -78430,11 +78450,11 @@ function PostModal() {
     "in": open
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classes.paper
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-    id: "transition-modal-title"
-  }, "Transition modal"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    id: "transition-modal-description"
-  }, "react-transition-group animates me.")))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: imgSrc,
+    className: classes.openModalImg,
+    alt: ""
+  })))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (PostModal);
@@ -78503,12 +78523,24 @@ var useStyles = _material_ui_core_styles_makeStyles__WEBPACK_IMPORTED_MODULE_4__
       // objectFit: 'contain',
       height: 180,
       width: '100%',
-      borderRadius: 30
+      borderRadius: 30,
+      boxShadow: '3px 5px 8px gray',
+      transition: 'all 200ms linear',
+      '&:hover': {
+        transform: 'scale(1.15)',
+        transition: 'all 200ms linear'
+      }
     },
     postImgSub: {
       height: 130,
       width: '100%',
-      borderRadius: 30
+      borderRadius: 30,
+      boxShadow: '3px 5px 8px gray',
+      transition: 'all 200ms linear',
+      '&:hover': {
+        transform: 'scale(1.2)',
+        transition: 'all 200ms linear'
+      }
     }
   };
 });
@@ -78598,7 +78630,7 @@ function Profile() {
     className: classes.paperPosts
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__["default"], {
     variant: "h4"
-  }, "Posts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PostModal__WEBPACK_IMPORTED_MODULE_9__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, "Posts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
     container: true,
     spacing: 3
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -78609,19 +78641,18 @@ function Profile() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
         key: post.id,
         item: true,
-        xs: 6,
+        xs: 4,
         md: 3
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: classes.postImg,
-        alt: "post",
-        src: __webpack_require__("./storage/app/public sync recursive ^\\.\\/uploads.*$")("./uploads".concat(post.upload_file))
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PostModal__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        imgSrc: __webpack_require__("./storage/app/public sync recursive ^\\.\\/uploads.*$")("./uploads".concat(post.upload_file)),
+        imgStyle: classes.postImg
       }));
     } else {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
         item: true,
         container: true,
         key: post.id,
-        xs: 6,
+        xs: 4,
         md: 3
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
         item: true,
@@ -78629,10 +78660,9 @@ function Profile() {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
         item: true,
         xs: 8
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: classes.postImgSub,
-        alt: "post",
-        src: __webpack_require__("./storage/app/public sync recursive ^\\.\\/uploads.*$")("./uploads".concat(post.upload_file))
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PostModal__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        imgSrc: __webpack_require__("./storage/app/public sync recursive ^\\.\\/uploads.*$")("./uploads".concat(post.upload_file)),
+        imgStyle: classes.postImgSub
       })));
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -78716,6 +78746,9 @@ var theme = _material_ui_core_styles_createMuiTheme__WEBPACK_IMPORTED_MODULE_0__
   // },
   typography: {
     fontFamily: ['BlinkMacSystemFont']
+  },
+  palette: {
+    type: 'dark'
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (theme);
@@ -78740,7 +78773,8 @@ var map = {
 	"./uploads1606077122.jpeg": "./storage/app/public/uploads1606077122.jpeg",
 	"./uploads1606077394.jpeg": "./storage/app/public/uploads1606077394.jpeg",
 	"./uploads1606485319.jpeg": "./storage/app/public/uploads1606485319.jpeg",
-	"./uploads1606488459.jpeg": "./storage/app/public/uploads1606488459.jpeg"
+	"./uploads1606488459.jpeg": "./storage/app/public/uploads1606488459.jpeg",
+	"./uploads1606494222.jpeg": "./storage/app/public/uploads1606494222.jpeg"
 };
 
 
@@ -78883,6 +78917,17 @@ module.exports = "/images/uploads1606485319.jpeg?934c1c59623e5fb2facf0f3086a0279
 /***/ (function(module, exports) {
 
 module.exports = "/images/uploads1606488459.jpeg?19876d2b9e203c743a191a4e42830482";
+
+/***/ }),
+
+/***/ "./storage/app/public/uploads1606494222.jpeg":
+/*!***************************************************!*\
+  !*** ./storage/app/public/uploads1606494222.jpeg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/uploads1606494222.jpeg?e11cd1413c895d888dae21068255fbdb";
 
 /***/ }),
 

@@ -40,12 +40,24 @@ const useStyles = makeStyles((theme) => ({
         // objectFit: 'contain',
         height: 180,
         width: '100%',
-        borderRadius: 30
+        borderRadius: 30,
+        boxShadow: '3px 5px 8px gray',
+        transition: 'all 200ms linear',
+        '&:hover': {
+            transform: 'scale(1.15)',
+            transition: 'all 200ms linear'
+        }
     },
     postImgSub: {
         height: 130,
         width: '100%',
-        borderRadius: 30
+        borderRadius: 30,
+        boxShadow: '3px 5px 8px gray',
+        transition: 'all 200ms linear',
+        '&:hover': {
+            transform: 'scale(1.2)',
+            transition: 'all 200ms linear'
+        }
     }
   }));
 
@@ -116,29 +128,28 @@ function Profile() {
             <div className="" style={{marginTop: "20px"}}>
                 <Paper className={classes.paperPosts}>
                     <Typography variant="h4">Posts</Typography>
-                    <PostModal />
                         <Grid container spacing={3}>
                             <Grid item md={2} />
                             {
                                 posts && posts.map((post, index) => {
                                     if (index % 2 === 0) {
                                         return (
-                                            <Grid key={post.id} item xs={6} md={3}>
-                                                <img className={classes.postImg}
-                                                    alt="post"
-                                                    src={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
+                                            <Grid key={post.id} item xs={4} md={3}>
+                                                <PostModal
+                                                    imgSrc={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
+                                                    imgStyle={classes.postImg}
                                                 />
                                             </Grid>
                                         )
                                     } else {
                                         return (
-                                            <Grid item container key={post.id} xs={6} md={3}>
+                                            <Grid item container key={post.id} xs={4} md={3}>
                                                 <Grid item xs={4} />
                                                 <Grid item xs={8}>
-                                                    <img className={classes.postImgSub}
-                                                        alt="post"
-                                                        src={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
-                                                    />
+                                                    <PostModal
+                                                    imgSrc={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
+                                                    imgStyle={classes.postImgSub}
+                                                />
                                                 </Grid>
                                             </Grid>
                                         )

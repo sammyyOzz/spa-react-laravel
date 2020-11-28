@@ -17,6 +17,9 @@ const theme = createMuiTheme({
     // },
     typography: {
         fontFamily:  ['BlinkMacSystemFont',]
+    },
+    palette: {
+        type: 'dark'
     }
 })
 
