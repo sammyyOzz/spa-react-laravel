@@ -10,7 +10,6 @@ import Login from './components/auth/Login'
 import Home from './components/profile/Home';
 import Navbar from './components/Navigation/Navbar';
 import LandingPage from './components/Landing/LandingPage';
-import Logout from './components/auth/Logout';
 import Profile from './components/profile/Profile';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme'
@@ -46,7 +45,6 @@ function App() {
                             <Route exact path="/signup" component={Register} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/home" component={Home} />
-                            <Route exact path="/logout" component={Logout} />
                             <Route exact path="/profile/:id" component={Profile} />
                             <Route exact path="/post" component={CreatePost} />
                         </Switch>

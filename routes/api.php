@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 
@@ -33,9 +34,12 @@ Route::group([
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
         Route::post('/p', [PostController::class, 'store']);
+        Route::get('/follow/{user}', [FollowsController::class, 'store']);
     });
 });
 
 Route::get('/profile/{profile}', [ProfileController::class, 'show']);
 Route::get('/{user}/posts', [PostController::class, 'index']);
+Route::get('/following/{user}', [FollowsController::class, 'following']);
+Route::get('/followers/{user}', [FollowsController::class, 'followers']);
 

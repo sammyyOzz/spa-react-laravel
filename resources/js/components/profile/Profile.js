@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import { useAxiosGet, useAxiosGetPost } from '../Hooks/HttpRequests';
 import Grid from '@material-ui/core/Grid'
@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
 import PostModal from './PostModal';
+import axios from 'axios'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
         height: 180,
         width: '100%',
         borderRadius: 30,
-        boxShadow: '3px 5px 8px gray',
         transition: 'all 200ms linear',
         '&:hover': {
+            boxShadow: '3px 5px 8px gray',
             transform: 'scale(1.15)',
             transition: 'all 200ms linear'
         }
@@ -52,9 +53,9 @@ const useStyles = makeStyles((theme) => ({
         height: 130,
         width: '100%',
         borderRadius: 30,
-        boxShadow: '3px 5px 8px gray',
         transition: 'all 200ms linear',
         '&:hover': {
+            boxShadow: '3px 5px 8px gray',
             transform: 'scale(1.2)',
             transition: 'all 200ms linear'
         }
@@ -64,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
     const classes = useStyles();
+    const userId = localStorage.getItem('userId')
     const { id } = useParams()
     const url = `http://127.0.0.1:8000/api/profile/${id}`
     const user = useAxiosGet(url)
@@ -71,9 +73,36 @@ function Profile() {
     const postUrl = `http://127.0.0.1:8000/api/${id}/posts`
     const posts = useAxiosGetPost(postUrl)
 
+    const followersUrl = `http://127.0.0.1:8000/api/followers/${id}`
+    const followers = useAxiosGetPost(followersUrl)
+
     if(! user.profile_image) {
         user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg'
     }
+
+    const headers = { headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }}
+
+    const followUser = () => {
+        axios.get(`http://127.0.0.1:8000/api/auth/follow/${id}`, headers)
+        .then(res => console.log(res))
+    }
+
+    const [following, setFollowing] = useState([])
+
+    useEffect(() => {
+        const getFollowing = () => {
+            axios.get(`http://127.0.0.1:8000/api/following/${id}`)
+            .then(res => {
+                const response = res.data
+                setFollowing(() => response.map(item => item.id))
+            })
+            .catch(err => console.log(err))
+        }
+
+        getFollowing()
+    }, [url])
+
+    const followCheck = following.includes( user?.id )
 
     return (
         <div className={classes.root}>
@@ -87,16 +116,13 @@ function Profile() {
                         </ButtonBase>
                     </Grid>
 
-                    <Grid item xs={9} container>
-                        <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs={4} container>
+                        <Grid item xs container direction="column">
 
                             {/* username, description... */}
                             <Grid item xs>
                                 <Typography gutterBottom variant="h4">
                                     {user.username}
-                                    <Button style={{marginLeft: '15px'}} size="small" variant="outlined" href="#">
-                                        Edit Profile
-                                    </Button>
                                 </Typography>
                                 <Typography variant="h6" gutterBottom>
                                     <strong>{user.profile_title}</strong>
@@ -114,12 +140,55 @@ function Profile() {
                             </Grid>
                         </Grid>
 
-                        {/* add post button */}
-                        <Grid item>
-                            <Button size="small" variant="outlined" color="primary" component={Link} to="/post">
-                                Add Post
-                            </Button>
+                    </Grid>
+
+                    <Grid item container xs={2} direction="column" alignItems="center" justify="space-between">
+                        <Grid item container direction="column" alignItems="center">
+                            <Grid item><Typography variant="h6" style={{color: 'skyblue'}}>{posts?.length}</Typography></Grid>
+                            <Grid item><Typography variant="overline" style={{color: 'skyblue'}}>posts</Typography></Grid>
                         </Grid>
+                        <Grid item container direction="column" alignItems="center">
+                            <Grid item><Typography variant="h6" style={{color: '#76ff03'}}>{followers?.length}</Typography></Grid>
+                            <Grid item><Typography variant="overline" style={{color: '#76ff03'}}>followers</Typography></Grid>
+                        </Grid>
+                        <Grid item container direction="column" alignItems="center">
+                            <Grid item><Typography variant="h6" style={{color: 'yellow'}}>{following?.length}</Typography></Grid>
+                            <Grid item><Typography variant="overline" style={{color: 'yellow'}}>following</Typography></Grid>
+                        </Grid>
+                    </Grid>
+
+                    {/* add post button */}
+                    <Grid item container xs={3} direction="column" justify="space-between" alignItems="flex-end">
+                        {
+                            userId !== id &&
+                            <Grid item>
+                                <Button
+                                onClick={followUser}
+                                size="small"
+                                variant="contained"
+                                style={{ color: 'white', backgroundColor: 'green' }}>
+                                    {
+                                        followCheck ? "Unfollow" : "follow"
+                                    }
+                                </Button>
+                            </Grid>
+                        }
+                        {
+                            userId == id &&
+                            <Grid item>
+                                <Button size="small" variant="contained" color="primary" component={Link} to="/post">
+                                    Add Post
+                                </Button>
+                            </Grid>
+                        }
+                        {
+                            userId == id &&
+                            <Grid item>
+                                <Button size="small" variant="outlined" href="#">
+                                    Edit Profile
+                                </Button>
+                            </Grid>
+                        }
                     </Grid>
                 </Grid>
             </Paper>

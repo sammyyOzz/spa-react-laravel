@@ -4,11 +4,12 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import { useStateValue } from '../../StateProvider'
+import axios from 'axios'
 
 
 const useStyles = makeStyles(() => ({
@@ -30,7 +31,30 @@ const useStyles = makeStyles(() => ({
 
 const Navbar = () => {
     const classes = useStyles();
-    const [ { user, userId }, dispatch ] = useStateValue();
+    const [ { user }, dispatch ] = useStateValue();
+    const userId = localStorage.getItem('userId')
+    const history = useHistory()
+
+    const logout = () => {
+        if(localStorage.usertoken) {
+            axios.get('http://127.0.0.1:8000/api/auth/logout', {
+                headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }
+            })
+            .then(() => {
+                dispatch({
+                    type: 'SET_USER',
+                    user: false
+                })
+                dispatch({
+                    type: 'SET_USER_ID',
+                    userId: null
+                })
+                localStorage.removeItem('usertoken')
+                history.push('/')
+            })
+            .catch(err => console.log(err))
+        }
+    }
 
     return (
         <div className={classes.root}>
@@ -40,6 +64,9 @@ const Navbar = () => {
                         <div className={classes.navContent}>
                             <div>
                                 <Button color="inherit" component={Link} to="/">SinglePageApp</Button>
+                                <Link to="/profile/1"><span style={{paddingLeft: 30}}>1</span></Link>
+                                <Link to="/profile/2"><span style={{paddingLeft: 30}}>2</span></Link>
+                                <Link to="/profile/3"><span style={{paddingLeft: 30}}>3</span></Link>
                             </div>
                             <div>
                                 <Button
@@ -68,8 +95,8 @@ const Navbar = () => {
                                 </Button>
                                 <Button
                                     className={ ! user ? classes.hideButton : ""}
-                                    color="inherit" component={Link}
-                                    to="/logout">
+                                    color="inherit"
+                                    onClick={logout}>
                                         Logout
                                 </Button>
                             </div>

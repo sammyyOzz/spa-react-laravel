@@ -13,6 +13,7 @@ function Home() {
     const [ {}, dispatch] = useStateValue()
 
     useEffect(() => {
+        localStorage.setItem('userId', home.id)
         dispatch({
             type: 'SET_USER_ID',
             userId: home.id
