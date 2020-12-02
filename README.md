@@ -4,4 +4,4 @@ This is a single page social media app created using React for the front-end and
 It is not completed yet, however it can be cloned by using:
 
 
-https://github.com/sammyyOzz/spa-react-laravel
+git clone https://github.com/sammyyOzz/spa-react-laravel
