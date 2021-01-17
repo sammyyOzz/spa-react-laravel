@@ -45,7 +45,7 @@ function Chat() {
     useEffect(() => {
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
-        const pusher = new Pusher('eb6042e2dbfb74506ef3', {
+        const pusher = new Pusher('YOUR_PUSHER_APP_KEY', {
             cluster: 'eu',
           });
 

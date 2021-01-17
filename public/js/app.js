@@ -84336,7 +84336,7 @@ function Chat() {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // Enable pusher logging - don't include this in production
     pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a.logToConsole = true;
-    var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a('eb6042e2dbfb74506ef3', {
+    var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a('YOUR_PUSHER_APP_KEY', {
       cluster: 'eu'
     });
     var channel = pusher.subscribe('chat');
