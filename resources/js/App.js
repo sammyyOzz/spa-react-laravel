@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import
     {   BrowserRouter as Router,
@@ -16,10 +16,14 @@ import theme from './theme'
 import CreatePost from './components/post/CreatePost';
 import { StateProvider, useStateValue } from './StateProvider';
 import reducer, { initialState } from './reducer';
+import Chat from './components/chat/Chat';
+import { headers } from './components/Utilities/constants';
+import Axios from 'axios';
 
 
 function App() {
-    const [ {}, dispatch ] = useStateValue();
+    const [ { }, dispatch ] = useStateValue();
+    const url = "http://127.0.0.1:8000/api/auth/user"
 
     useEffect(() => {
         const loadUserState = () => {
@@ -32,6 +36,21 @@ function App() {
         }
 
         loadUserState();
+    }, [])
+
+    useEffect(() => {
+        const dispatchUserData = () => {
+            Axios.get(url, headers)
+                .then(res => {
+                    dispatch({
+                        type: 'SET_USER_DATA',
+                        userData: res.data.data
+                    })
+                })
+                .catch(err => console.log(err))
+        }
+
+        dispatchUserData()
     }, [])
 
     return(
@@ -47,6 +66,7 @@ function App() {
                             <Route exact path="/home" component={Home} />
                             <Route exact path="/profile/:id" component={Profile} />
                             <Route exact path="/post" component={CreatePost} />
+                            <Route exact path="/chat" component={Chat} />
                         </Switch>
                     </div>
                 </Router>

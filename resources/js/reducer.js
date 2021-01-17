@@ -1,6 +1,7 @@
 export const initialState = {
     user: false,
-    userId: null
+    userId: null,
+    userData: null
 };
 
 const reducer = (state, action) => {
@@ -17,6 +18,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 userId: action.userId
+            }
+
+        case 'SET_USER_DATA':
+            return {
+                ...state,
+                userData: action.userData
             }
 
         default:

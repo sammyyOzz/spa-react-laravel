@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -35,6 +36,8 @@ Route::group([
         Route::get('user', [AuthController::class, 'user']);
         Route::post('/p', [PostController::class, 'store']);
         Route::get('/follow/{user}', [FollowsController::class, 'store']);
+        Route::get('/messages', [ChatsController::class, 'fetchMessages']);
+        Route::post('/messages', [ChatsController::class, 'sendMessage']);
     });
 });
 
