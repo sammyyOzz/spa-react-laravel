@@ -8,20 +8,33 @@ import { useStateValue } from '../../StateProvider';
 import Pusher from 'pusher-js'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '40ch',
-        display: 'flex',
-        justifyContent: 'center'
-      },
+    message: {
+        backgroundColor: 'gray',
+        padding: '1px 1px 1px 1px',
+        marginBottom: '15px',
+        position: 'relative',
+        maxWidth: '55%',
+        borderRadius: '20px'
     },
-    paper: {
-        padding: theme.spacing(2),
-        margin: 'auto',
-        maxWidth: 800,
-        minHeight: 450
-      },
+    sender: {
+        marginLeft: 'auto',
+        backgroundColor: '#448aff'
+    },
+    messageText: {
+        marginLeft: '10px',
+        marginRight: '10px',
+        backgroundColor: 'white',
+        borderRadius: '12px',
+        padding: '5px 10px 5px 10px',
+    },
+    senderText: {
+        backgroundColor: '#448aff'
+    },
+    username: {
+        color: 'white',
+        fontSize: '15px',
+        marginLeft: '10px'
+    }
   }));
 
 function Chat() {
@@ -45,9 +58,9 @@ function Chat() {
     useEffect(() => {
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
-        const pusher = new Pusher('YOUR_PUSHER_APP_KEY', {
+        const pusher = new Pusher('eb6042e2dbfb74506ef3', {
             cluster: 'eu',
-          });
+        });
 
         const channel = pusher.subscribe('chat');
         channel.bind('event-pusher', data => {
@@ -78,28 +91,40 @@ function Chat() {
 
     return (
         <div>
-            <ul>
-                {
-                    messages &&
-                    messages.map(message => (
-                    <li key={message?.id}>
-                        {message?.message} from <span style={{color: 'yellow'}}>{message?.user?.username}</span>
-                    </li>
-                    ))
-                }
-            </ul>
+            <h1 style={{ color: 'white', textAlign: 'center' }}>Chat App!</h1>
+            {
+                messages &&
+                messages.map(message => (
+                <div
+                  key={message?.id}
+                  className={ `${classes.message} ${userData?.username === message?.user?.username && classes.sender}` }
+                >
+                    { userData?.username !== message?.user?.username &&
+                    <p className={classes.username}>{message?.user?.username}</p>
+                    }
+                    <p className={ `${classes.messageText} ${userData?.username === message?.user?.username && classes.senderText}` }>
+                        <strong>{message?.message}</strong>
+                    </p>
+                </div>
+                ))
+            }
 
-            <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off" >
-                <TextField
-                    type="text"
-                    placeholder="send a message"
-                    variant="outlined"
-                    value={sendMessage.message}
-                    onChange={handleMessage}
-                /> <br/>
+            <div className="chat__textbox">
+                <form onSubmit={handleSubmit} noValidate autoComplete="off" >
+                    <TextField
+                        className="chat__input"
+                        type="text"
+                        placeholder="send a message"
+                        variant="outlined"
+                        value={sendMessage.message}
+                        onChange={handleMessage}
 
-                <Button type="submit" variant="contained" color="primary">Send Message</Button>
-            </form>
+                    />
+                    <Button color="primary" variant="contained" type="submit" className="chat__sendButton">
+                        Send
+                    </Button>
+                </form>
+            </div>
         </div>
     )
 }

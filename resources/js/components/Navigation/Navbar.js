@@ -10,6 +10,8 @@ import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import { useStateValue } from '../../StateProvider'
 import axios from 'axios'
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+// import IconButton from '@material-ui/core/IconButton'
 
 
 const useStyles = makeStyles(() => ({
@@ -80,6 +82,12 @@ const Navbar = () => {
                                     color="inherit" component={Link}
                                     to="/login">
                                         Login
+                                </Button>
+                                <Button
+                                    className={ ! user ? classes.hideButton : ""}
+                                    color="inherit" component={Link}
+                                    to="/chat">
+                                        <ChatBubbleOutlineIcon />
                                 </Button>
                                 <Button
                                     className={ ! user ? classes.hideButton : ""}

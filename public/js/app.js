@@ -16335,6 +16335,75 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/icons/ChatBubbleOutline.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/ChatBubbleOutline.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement("path", {
+  d: "M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"
+}), 'ChatBubbleOutline');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/icons/utils/createSvgIcon.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material-ui/icons/utils/createSvgIcon.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = createSvgIcon;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _SvgIcon = _interopRequireDefault(__webpack_require__(/*! @material-ui/core/SvgIcon */ "./node_modules/@material-ui/core/esm/SvgIcon/index.js"));
+
+function createSvgIcon(path, displayName) {
+  var Component = _react.default.memo(_react.default.forwardRef(function (props, ref) {
+    return _react.default.createElement(_SvgIcon.default, (0, _extends2.default)({
+      ref: ref
+    }, props), path);
+  }));
+
+  if (true) {
+    Component.displayName = "".concat(displayName, "Icon");
+  }
+
+  Component.muiName = _SvgIcon.default.muiName;
+  return Component;
+}
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/styles/esm/ServerStyleSheets/ServerStyleSheets.js":
 /*!*************************************************************************************!*\
   !*** ./node_modules/@material-ui/styles/esm/ServerStyleSheets/ServerStyleSheets.js ***!
@@ -83739,6 +83808,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _StateProvider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../StateProvider */ "./resources/js/StateProvider.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _material_ui_icons_ChatBubbleOutline__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/icons/ChatBubbleOutline */ "./node_modules/@material-ui/icons/ChatBubbleOutline.js");
+/* harmony import */ var _material_ui_icons_ChatBubbleOutline__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_ChatBubbleOutline__WEBPACK_IMPORTED_MODULE_12__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -83762,6 +83833,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+ // import IconButton from '@material-ui/core/IconButton'
 
 var useStyles = _material_ui_core_styles_makeStyles__WEBPACK_IMPORTED_MODULE_7___default()(function () {
   return {
@@ -83855,6 +83928,11 @@ var Navbar = function Navbar() {
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
     to: "/login"
   }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    className: !user ? classes.hideButton : "",
+    color: "inherit",
+    component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
+    to: "/chat"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_ChatBubbleOutline__WEBPACK_IMPORTED_MODULE_12___default.a, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: !user ? classes.hideButton : "",
     color: "inherit",
     component: react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"],
@@ -84285,19 +84363,32 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(function (theme) {
   return {
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '40ch',
-        display: 'flex',
-        justifyContent: 'center'
-      }
+    message: {
+      backgroundColor: 'gray',
+      padding: '1px 1px 1px 1px',
+      marginBottom: '15px',
+      position: 'relative',
+      maxWidth: '55%',
+      borderRadius: '20px'
     },
-    paper: {
-      padding: theme.spacing(2),
-      margin: 'auto',
-      maxWidth: 800,
-      minHeight: 450
+    sender: {
+      marginLeft: 'auto',
+      backgroundColor: '#448aff'
+    },
+    messageText: {
+      marginLeft: '10px',
+      marginRight: '10px',
+      backgroundColor: 'white',
+      borderRadius: '12px',
+      padding: '5px 10px 5px 10px'
+    },
+    senderText: {
+      backgroundColor: '#448aff'
+    },
+    username: {
+      color: 'white',
+      fontSize: '15px',
+      marginLeft: '10px'
     }
   };
 });
@@ -84336,7 +84427,7 @@ function Chat() {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // Enable pusher logging - don't include this in production
     pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a.logToConsole = true;
-    var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a('YOUR_PUSHER_APP_KEY', {
+    var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a('eb6042e2dbfb74506ef3', {
       cluster: 'eu'
     });
     var channel = pusher.subscribe('chat');
@@ -84372,32 +84463,41 @@ function Chat() {
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, messages && messages.map(function (message) {
-    var _message$user;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    style: {
+      color: 'white',
+      textAlign: 'center'
+    }
+  }, "Chat App!"), messages && messages.map(function (message) {
+    var _message$user, _message$user2, _message$user3, _message$user4;
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      key: message === null || message === void 0 ? void 0 : message.id
-    }, message === null || message === void 0 ? void 0 : message.message, " from ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      style: {
-        color: 'yellow'
-      }
-    }, message === null || message === void 0 ? void 0 : (_message$user = message.user) === null || _message$user === void 0 ? void 0 : _message$user.username));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: message === null || message === void 0 ? void 0 : message.id,
+      className: "".concat(classes.message, " ").concat((userData === null || userData === void 0 ? void 0 : userData.username) === (message === null || message === void 0 ? void 0 : (_message$user = message.user) === null || _message$user === void 0 ? void 0 : _message$user.username) && classes.sender)
+    }, (userData === null || userData === void 0 ? void 0 : userData.username) !== (message === null || message === void 0 ? void 0 : (_message$user2 = message.user) === null || _message$user2 === void 0 ? void 0 : _message$user2.username) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: classes.username
+    }, message === null || message === void 0 ? void 0 : (_message$user3 = message.user) === null || _message$user3 === void 0 ? void 0 : _message$user3.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: "".concat(classes.messageText, " ").concat((userData === null || userData === void 0 ? void 0 : userData.username) === (message === null || message === void 0 ? void 0 : (_message$user4 = message.user) === null || _message$user4 === void 0 ? void 0 : _message$user4.username) && classes.senderText)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, message === null || message === void 0 ? void 0 : message.message)));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "chat__textbox"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     onSubmit: handleSubmit,
-    className: classes.root,
     noValidate: true,
     autoComplete: "off"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "chat__input",
     type: "text",
     placeholder: "send a message",
     variant: "outlined",
     value: sendMessage.message,
     onChange: handleMessage
-  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    type: "submit",
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    color: "primary",
     variant: "contained",
-    color: "primary"
-  }, "Send Message")));
+    type: "submit",
+    className: "chat__sendButton"
+  }, "Send"))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Chat);

@@ -11,3 +11,33 @@ body {
     margin: auto;
     max-width: 925px;
 }
+
+.chat__textbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    margin-top: 20px;
+    padding: 5px;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.chat__textbox > form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat__input {
+    border: 1px solid black;
+    width: 82%;
+    margin-right: 15px;
+}
+
+.chat__sendButton {
+    width: 12%;
+}
