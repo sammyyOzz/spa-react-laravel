@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import { useStateValue } from '../../StateProvider';
 import Pusher from 'pusher-js'
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     message: {
@@ -58,7 +59,7 @@ function Chat() {
     useEffect(() => {
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
-        const pusher = new Pusher('eb6042e2dbfb74506ef3', {
+        const pusher = new Pusher('YOUR_PUSHER_APP_KEY', {
             cluster: 'eu',
         });
 
@@ -100,7 +101,11 @@ function Chat() {
                   className={ `${classes.message} ${userData?.username === message?.user?.username && classes.sender}` }
                 >
                     { userData?.username !== message?.user?.username &&
-                    <p className={classes.username}>{message?.user?.username}</p>
+                        <Link to={`/profile/${message?.user.id}`}
+                          style={{textDecoration: 'none'}}
+                        >
+                            <p className={classes.username}>{message?.user?.username}</p>
+                        </Link>
                     }
                     <p className={ `${classes.messageText} ${userData?.username === message?.user?.username && classes.senderText}` }>
                         <strong>{message?.message}</strong>

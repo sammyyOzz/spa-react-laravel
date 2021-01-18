@@ -69,40 +69,39 @@ function Profile() {
     const { id } = useParams()
     const url = `http://127.0.0.1:8000/api/profile/${id}`
     const user = useAxiosGet(url)
-
     const postUrl = `http://127.0.0.1:8000/api/${id}/posts`
     const posts = useAxiosGetPost(postUrl)
-
     const followersUrl = `http://127.0.0.1:8000/api/followers/${id}`
     const followers = useAxiosGetPost(followersUrl)
+    const followingUrl = `http://127.0.0.1:8000/api/following/${id}`
+    const following = useAxiosGetPost(followingUrl)
+
+    const [followButton, setFollowButton] = useState(false)
+
+    const headers = { headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }}
+
+    useEffect(() => {
+        const checkFollowing = () => {
+            axios.get(`http://127.0.0.1:8000/api/auth/followcheck/${id}`, headers)
+            .then(res => {
+                res.data ? setFollowButton(true) : setFollowButton(false)
+            })
+            .catch(err => console.log(err))
+        }
+
+        checkFollowing()
+    }, [url])
 
     if(! user.profile_image) {
         user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg'
     }
 
-    const headers = { headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }}
-
     const followUser = () => {
         axios.get(`http://127.0.0.1:8000/api/auth/follow/${id}`, headers)
-        .then(res => console.log(res))
+        .catch(err => console.log(err))
+        setFollowButton(prevState => ! prevState)
     }
 
-    const [following, setFollowing] = useState([])
-
-    useEffect(() => {
-        const getFollowing = () => {
-            axios.get(`http://127.0.0.1:8000/api/following/${id}`)
-            .then(res => {
-                const response = res.data
-                setFollowing(() => response.map(item => item.id))
-            })
-            .catch(err => console.log(err))
-        }
-
-        getFollowing()
-    }, [url])
-
-    const followCheck = following.includes( user?.id )
 
     return (
         <div className={classes.root}>
@@ -168,7 +167,7 @@ function Profile() {
                                 variant="contained"
                                 style={{ color: 'white', backgroundColor: 'green' }}>
                                     {
-                                        followCheck ? "Unfollow" : "follow"
+                                        followButton ? "Unfollow" : "follow"
                                     }
                                 </Button>
                             </Grid>

@@ -84333,6 +84333,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _StateProvider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../StateProvider */ "./resources/js/StateProvider.js");
 /* harmony import */ var pusher_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 /* harmony import */ var pusher_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(pusher_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -84352,6 +84353,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -84427,7 +84429,7 @@ function Chat() {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     // Enable pusher logging - don't include this in production
     pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a.logToConsole = true;
-    var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a('eb6042e2dbfb74506ef3', {
+    var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_7___default.a('YOUR_PUSHER_APP_KEY', {
       cluster: 'eu'
     });
     var channel = pusher.subscribe('chat');
@@ -84474,9 +84476,14 @@ function Chat() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: message === null || message === void 0 ? void 0 : message.id,
       className: "".concat(classes.message, " ").concat((userData === null || userData === void 0 ? void 0 : userData.username) === (message === null || message === void 0 ? void 0 : (_message$user = message.user) === null || _message$user === void 0 ? void 0 : _message$user.username) && classes.sender)
-    }, (userData === null || userData === void 0 ? void 0 : userData.username) !== (message === null || message === void 0 ? void 0 : (_message$user2 = message.user) === null || _message$user2 === void 0 ? void 0 : _message$user2.username) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    }, (userData === null || userData === void 0 ? void 0 : userData.username) !== (message === null || message === void 0 ? void 0 : (_message$user2 = message.user) === null || _message$user2 === void 0 ? void 0 : _message$user2.username) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["Link"], {
+      to: "/profile/".concat(message === null || message === void 0 ? void 0 : message.user.id),
+      style: {
+        textDecoration: 'none'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
       className: classes.username
-    }, message === null || message === void 0 ? void 0 : (_message$user3 = message.user) === null || _message$user3 === void 0 ? void 0 : _message$user3.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    }, message === null || message === void 0 ? void 0 : (_message$user3 = message.user) === null || _message$user3 === void 0 ? void 0 : _message$user3.username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
       className: "".concat(classes.messageText, " ").concat((userData === null || userData === void 0 ? void 0 : userData.username) === (message === null || message === void 0 ? void 0 : (_message$user4 = message.user) === null || _message$user4 === void 0 ? void 0 : _message$user4.username) && classes.senderText)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, message === null || message === void 0 ? void 0 : message.message)));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -84957,45 +84964,44 @@ function Profile() {
   var posts = Object(_Hooks_HttpRequests__WEBPACK_IMPORTED_MODULE_2__["useAxiosGetPost"])(postUrl);
   var followersUrl = "http://127.0.0.1:8000/api/followers/".concat(id);
   var followers = Object(_Hooks_HttpRequests__WEBPACK_IMPORTED_MODULE_2__["useAxiosGetPost"])(followersUrl);
+  var followingUrl = "http://127.0.0.1:8000/api/following/".concat(id);
+  var following = Object(_Hooks_HttpRequests__WEBPACK_IMPORTED_MODULE_2__["useAxiosGetPost"])(followingUrl);
 
-  if (!user.profile_image) {
-    user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg';
-  }
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      followButton = _useState2[0],
+      setFollowButton = _useState2[1];
 
   var headers = {
     headers: {
       'Authorization': "Bearer ".concat(localStorage.usertoken)
     }
   };
-
-  var followUser = function followUser() {
-    axios__WEBPACK_IMPORTED_MODULE_10___default.a.get("http://127.0.0.1:8000/api/auth/follow/".concat(id), headers).then(function (res) {
-      return console.log(res);
-    });
-  };
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      following = _useState2[0],
-      setFollowing = _useState2[1];
-
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    var getFollowing = function getFollowing() {
-      axios__WEBPACK_IMPORTED_MODULE_10___default.a.get("http://127.0.0.1:8000/api/following/".concat(id)).then(function (res) {
-        var response = res.data;
-        setFollowing(function () {
-          return response.map(function (item) {
-            return item.id;
-          });
-        });
+    var checkFollowing = function checkFollowing() {
+      axios__WEBPACK_IMPORTED_MODULE_10___default.a.get("http://127.0.0.1:8000/api/auth/followcheck/".concat(id), headers).then(function (res) {
+        res.data ? setFollowButton(true) : setFollowButton(false);
       })["catch"](function (err) {
         return console.log(err);
       });
     };
 
-    getFollowing();
+    checkFollowing();
   }, [url]);
-  var followCheck = following.includes(user === null || user === void 0 ? void 0 : user.id);
+
+  if (!user.profile_image) {
+    user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg';
+  }
+
+  var followUser = function followUser() {
+    axios__WEBPACK_IMPORTED_MODULE_10___default.a.get("http://127.0.0.1:8000/api/auth/follow/".concat(id), headers)["catch"](function (err) {
+      return console.log(err);
+    });
+    setFollowButton(function (prevState) {
+      return !prevState;
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classes.root
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -85122,7 +85128,7 @@ function Profile() {
       color: 'white',
       backgroundColor: 'green'
     }
-  }, followCheck ? "Unfollow" : "follow")), userId == id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, followButton ? "Unfollow" : "follow")), userId == id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
     item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
     size: "small",
