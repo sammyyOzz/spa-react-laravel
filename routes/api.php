@@ -35,6 +35,7 @@ Route::group([
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
         Route::post('/p', [PostController::class, 'store']);
+        Route::get('/fp', [PostController::class, 'followingposts']);
         Route::get('/follow/{user}', [FollowsController::class, 'store']);
         Route::get('/followcheck/{user}', [FollowsController::class, 'followcheck']);
         Route::get('/messages', [ChatsController::class, 'fetchMessages']);

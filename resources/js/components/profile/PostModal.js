@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '80%',
     display: 'flex'
   },
-
   openModalImg: {
-    objectFit: 'contain'
+    // objectFit: 'contain',
+    maxWidth: '60vw',
+    height: 'auto'
   },
   paperRight: {
       height: '100%',

@@ -32,4 +32,13 @@ class PostController extends Controller
     {
         return $user->posts;
     }
+
+    public function followingposts(Request $request)
+    {
+        $users = $request->user()->following()->pluck('profiles.user_id');
+
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->get();
+
+        return $posts;
+    }
 }
