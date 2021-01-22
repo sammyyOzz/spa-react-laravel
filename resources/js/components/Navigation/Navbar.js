@@ -17,6 +17,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
+        marginBottom: '90px'
     },
     navContent: {
         display: 'flex',

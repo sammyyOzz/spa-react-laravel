@@ -9,6 +9,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
 import PostModal from './PostModal';
 import axios from 'axios'
+import Pusher from 'pusher-js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -72,11 +73,12 @@ function Profile() {
     const postUrl = `http://127.0.0.1:8000/api/${id}/posts`
     const posts = useAxiosGetPost(postUrl)
     const followersUrl = `http://127.0.0.1:8000/api/followers/${id}`
-    const followers = useAxiosGetPost(followersUrl)
+    // let followers = useAxiosGetPost(followersUrl)
     const followingUrl = `http://127.0.0.1:8000/api/following/${id}`
     const following = useAxiosGetPost(followingUrl)
 
     const [followButton, setFollowButton] = useState(false)
+    const [followers, setFollowers] = useState(0)
 
     const headers = { headers: { 'Authorization': `Bearer ${localStorage.usertoken}` }}
 
@@ -91,6 +93,36 @@ function Profile() {
 
         checkFollowing()
     }, [url])
+
+    useEffect(() => {
+        const fetchRequest = () => {
+            axios.get(`http://127.0.0.1:8000/api/followers/${id}`, headers)
+            .then(res => {
+                setFollowers(res.data)
+            })
+            .catch(err => console.log(err))
+        }
+
+        fetchRequest();
+    }, [url]);
+
+    useEffect(() => {
+        // Enable pusher logging - don't include this in production
+        // Pusher.logToConsole = true;
+        const pusher = new Pusher(process.env.MIX_PUSHER_APP_KEY, {
+            cluster: 'eu',
+        });
+
+        const channel = pusher.subscribe('following');
+        channel.bind('event-following', data => {
+            // alert(JSON.stringify(data));
+            axios.get(`http://127.0.0.1:8000/api/followers/${id}`, headers)
+            .then(res => {
+                setFollowers(res.data)
+            })
+            .catch(err => console.log(err))
+        });
+    }, [])
 
     if(! user.profile_image) {
         user.profile_image = 'https://lexcomply.com/siteadmin/admin_dashboard/img/testimonial/no_avatar.jpg'
@@ -147,7 +179,7 @@ function Profile() {
                             <Grid item><Typography variant="overline" style={{color: 'skyblue'}}>posts</Typography></Grid>
                         </Grid>
                         <Grid item container direction="column" alignItems="center">
-                            <Grid item><Typography variant="h6" style={{color: '#76ff03'}}>{followers?.length}</Typography></Grid>
+                            <Grid item><Typography variant="h6" style={{color: '#76ff03'}}>{followers}</Typography></Grid>
                             <Grid item><Typography variant="overline" style={{color: '#76ff03'}}>followers</Typography></Grid>
                         </Grid>
                         <Grid item container direction="column" alignItems="center">

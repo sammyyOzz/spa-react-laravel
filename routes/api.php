@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,8 @@ Route::group([
         Route::get('/followcheck/{user}', [FollowsController::class, 'followcheck']);
         Route::get('/messages', [ChatsController::class, 'fetchMessages']);
         Route::post('/messages', [ChatsController::class, 'sendMessage']);
+        Route::post('/comment', [CommentController::class, 'store']);
+        Route::get('/{post}/comments', [CommentController::class, 'index']);
     });
 });
 

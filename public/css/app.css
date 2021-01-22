@@ -1,5 +1,11 @@
 body {
     background-color: rgb(51, 49, 49);
+    background-image: url(https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
 }
 
 .container {
@@ -16,14 +22,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: -webkit-sticky;
-    position: sticky;
+    position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
-    margin-top: 20px;
-    padding: 5px;
-    background-color: black;
-    border-radius: 10px;
+    margin-top: 50px;
+    padding: 5px 30px 5px 5px;
+    background-color: rgb(44, 40, 40);
+    /* border-radius: 10px; */
+    width: 100%;
 }
 
 .chat__textbox > form {
@@ -35,10 +43,10 @@ body {
 
 .chat__input {
     border: 1px solid black;
-    width: 82%;
+    width: 85%;
     margin-right: 15px;
 }
 
 .chat__sendButton {
-    width: 12%;
+    width: 10%;
 }

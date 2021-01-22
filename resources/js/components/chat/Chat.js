@@ -7,6 +7,7 @@ import Axios from 'axios';
 import { useStateValue } from '../../StateProvider';
 import Pusher from 'pusher-js'
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
     message: {
@@ -58,8 +59,8 @@ function Chat() {
 
     useEffect(() => {
         // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-        const pusher = new Pusher('PUSHER_APP_KEY', {
+        // Pusher.logToConsole = true;
+        const pusher = new Pusher(process.env.MIX_PUSHER_APP_KEY, {
             cluster: 'eu',
         });
 
@@ -93,26 +94,34 @@ function Chat() {
     return (
         <div>
             <h1 style={{ color: 'white', textAlign: 'center' }}>Chat App!</h1>
-            {
-                messages &&
-                messages.map(message => (
-                <div
-                  key={message?.id}
-                  className={ `${classes.message} ${userData?.username === message?.user?.username && classes.sender}` }
-                >
-                    { userData?.username !== message?.user?.username &&
-                        <Link to={`/profile/${message?.user.id}`}
-                          style={{textDecoration: 'none'}}
-                        >
-                            <p className={classes.username}>{message?.user?.username}</p>
-                        </Link>
-                    }
-                    <p className={ `${classes.messageText} ${userData?.username === message?.user?.username && classes.senderText}` }>
-                        <strong>{message?.message}</strong>
-                    </p>
-                </div>
-                ))
-            }
+            <Grid container>
+                <Grid item md={2} />
+                <Grid item xs={12} md={8}>
+                    <div style={{marginBottom: '80px'}}>
+                        {
+                            messages &&
+                            messages.map(message => (
+                            <div
+                            key={message?.id}
+                            className={ `${classes.message} ${userData?.username === message?.user?.username && classes.sender}` }
+                            >
+                                { userData?.username !== message?.user?.username &&
+                                    <Link to={`/profile/${message?.user.id}`}
+                                    style={{textDecoration: 'none'}}
+                                    >
+                                        <p className={classes.username}>{message?.user?.username}</p>
+                                    </Link>
+                                }
+                                <p className={ `${classes.messageText} ${userData?.username === message?.user?.username && classes.senderText}` }>
+                                    <strong>{message?.message}</strong>
+                                </p>
+                            </div>
+                            ))
+                        }
+                    </div>
+                </Grid>
+                <Grid item md={2} />
+            </Grid>
 
             <div className="chat__textbox">
                 <form onSubmit={handleSubmit} noValidate autoComplete="off" >

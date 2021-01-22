@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { useStateValue } from '../../StateProvider';
 import { useAxiosGet, useAxiosGetPost } from '../Hooks/HttpRequests';
 import PostModal from './PostModal';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
     postImg: {
@@ -12,7 +14,13 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         borderRadius: 15,
     },
-  }));
+    caption: {
+        backgroundColor: 'gray',
+        padding: '5px',
+        display: 'inline-block',
+        borderRadius: '6px'
+    }
+}));
 
 
 function Home() {
@@ -38,7 +46,8 @@ function Home() {
     return(
         <div>
             <Grid container>
-                <Grid item xs={7}>
+                <Grid item md={2} />
+                <Grid item xs={12} md={5}>
                     <div>
                         {
                             posts && posts.map(post => (
@@ -46,23 +55,35 @@ function Home() {
                                     <h3>
                                         <Link
                                           to={`/profile/${post?.user?.id}`}
-                                          style={{ textDecoration: 'none', color: 'white' }}
+                                          style={{ textDecoration: 'none', color: 'black' }}
                                         >
                                             {post?.user?.username}
                                         </Link>
                                     </h3>
-                                    <p>{post?.caption}</p>
+                                    <p className={classes.caption}>{post?.caption}</p>
                                     <PostModal
                                         imgSrc={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
                                         imgStyle={classes.postImg}
                                     />
+                                    <div style={{ marginTop: '10px', display: 'flex', padding: '5px', backgroundColor: 'black', borderRadius: '10px', width: '160px' }}>
+                                        <div style={{ marginLeft: '20px', display: 'flex', alignItems: 'center' }}>
+                                            <span style={{paddingRight: '7px', color: 'white', paddingBottom: '2px'}}>{post?.comments?.length}</span>
+                                            <Link to={`/post/${post.id}`}>
+                                                <ChatBubbleIcon style={{ color: 'white' }} />
+                                            </Link>
+                                        </div>
+                                        <div style={{ marginLeft: '20px', display: 'flex', alignItems: 'center' }}>
+                                            <span style={{ paddingRight: '7px', color: 'white' }}>yy</span><FavoriteBorderIcon style={{color: 'white'}} />
+                                        </div>
+                                    </div>
                                     <hr style={{ marginBottom: '50px', marginTop: '35px'}} />
                                 </div>
                             ))
                         }
                     </div>
                 </Grid>
-                <Grid item xs={5} />
+                <Grid item xs={12} md={3} />
+                <Grid item md={2} />
             </Grid>
         </div>
     )

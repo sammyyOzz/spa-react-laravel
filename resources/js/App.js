@@ -19,6 +19,7 @@ import reducer, { initialState } from './reducer';
 import Chat from './components/chat/Chat';
 import { headers } from './components/Utilities/constants';
 import Axios from 'axios';
+import Comment from './components/post/Comment';
 
 
 function App() {
@@ -55,22 +56,19 @@ function App() {
 
     return(
         <ThemeProvider theme={theme}>
-            <div>
-                <Router>
-                    <Navbar />
-                    <div className="container">
-                        <Switch>
-                            <Route exact path="/" component={LandingPage} />
-                            <Route exact path="/signup" component={Register} />
-                            <Route exact path="/login" component={Login} />
-                            <Route exact path="/home" component={Home} />
-                            <Route exact path="/profile/:id" component={Profile} />
-                            <Route exact path="/post" component={CreatePost} />
-                            <Route exact path="/chat" component={Chat} />
-                        </Switch>
-                    </div>
-                </Router>
-            </div>
+            <Router>
+                <Navbar />
+                    <Switch>
+                        <Route exact path="/" component={LandingPage} />
+                        <Route exact path="/signup" component={Register} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/home" component={Home} />
+                        <Route exact path="/profile/:id" component={Profile} />
+                        <Route exact path="/post" component={CreatePost} />
+                        <Route exact path="/chat" component={Chat} />
+                        <Route exact path="/post/:id" component={Comment} />
+                    </Switch>
+            </Router>
         </ThemeProvider>
     )
 }
