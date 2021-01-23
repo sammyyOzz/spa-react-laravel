@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import PetsIcon from '@material-ui/icons/Pets';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 
 function LandingPage() {
 
@@ -19,6 +20,7 @@ function LandingPage() {
                     <PetsIcon /><span style={{paddingLeft: '10px'}}>Get Started</span>
                 </Button>
             </div>
+            <Footer />
         </div>
     )
 }

@@ -3,43 +3,58 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { useStateValue } from '../../StateProvider';
+import Footer from '../Landing/Footer';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '40ch',
         display: 'flex',
-        justifyContent: 'center'
-      },
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
     },
-    button: {
-        width: '46ch',
+    title: {
+        textAlign: 'center',
+        marginBottom: '25px'
     },
     paper: {
-        padding: theme.spacing(2),
-        margin: 'auto',
-        maxWidth: 800,
-        minHeight: 450
-      },
+        width: '100%',
+        paddingTop: '40px',
+        paddingBottom: '60px'
+    },
+    form: {
+        marginLeft: '20px',
+        marginRight: '20px',
+        marginBottom: '10px'
+    },
+    input: {
+        width: '100%',
+        marginBottom: '25px'
+    },
+    signup: {
+        marginLeft: '20px',
+        color: 'white',
+    },
+    error: {
+        marginLeft: '30px',
+        color: 'red'
+    }
   }));
 
 function Login() {
     const history = useHistory();
     const classes = useStyles();
-
     const [ {}, dispatch ] = useStateValue();
-
     const [user, setUser] = useState({
         email: '',
         password: ''
     });
+    const [error, setError] = useState("")
 
     const header = { headers: {
         'Content-Type': 'application/json',
@@ -58,7 +73,9 @@ function Login() {
             })
         })
         .catch(error => {
-            console.log(error)
+            if (error.response.status === 401) {
+                setError("Wrong email or password!")
+            }
         })
     }
 
@@ -73,35 +90,47 @@ function Login() {
     }
 
     return(
-        <div>
-            <Paper className={classes.paper}>
-                <Grid container spacing={10}>
-                    <Grid item xs />
-                    <Grid item xs>
-                        <Typography variant="h4">Login</Typography>
-                        <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off" >
-                            <TextField
-                            required
-                            label="email"
-                            type="email"
-                            placeholder="enter your email address"
-                            variant="outlined"
-                            onChange={handleEmail}
-                            /> <br/>
+        <div className={classes.root}>
+            <Grid container>
+                <Grid item sm={1} md={3} lg={4} />
 
-                            <TextField
-                            label="Password"
-                            type="password"
-                            variant="outlined"
-                            onChange={handlePassword}
-                            /> <br/>
+                <Grid item xs={12} sm={10} md={6} lg={4}>
+                        <Paper className={classes.paper}>
+                            <Typography className={classes.title} variant="h4">Login</Typography>
+                            <p className={classes.error}>{error}</p>
+                            <form onSubmit={handleSubmit} className={classes.form} >
+                                <TextField
+                                required
+                                label="email"
+                                type="email"
+                                placeholder="enter your email address"
+                                variant="outlined"
+                                onChange={handleEmail}
+                                className={classes.input}
+                                />
 
-                            <Button className={classes.button} fullWidth type="submit" variant="contained" color="primary">Login</Button>
-                        </form>
-                    </Grid>
-                    <Grid item xs />
+                                <TextField
+                                required
+                                label="Password"
+                                type="password"
+                                variant="outlined"
+                                onChange={handlePassword}
+                                className={classes.input}
+                                />
+
+                                <Button fullWidth type="submit" variant="contained" color="primary">
+                                    Login
+                                </Button>
+                            </form>
+                            <Link to='/signup' className={classes.signup}>
+                                Sign Up!
+                            </Link>
+                        </Paper>
                 </Grid>
-            </Paper>
+
+                <Grid item sm={1} md={3} lg={4} />
+            </Grid>
+            {/* <Footer /> */}
         </div>
     )
 }
