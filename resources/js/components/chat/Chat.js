@@ -93,7 +93,7 @@ function Chat() {
 
     return (
         <div>
-            <h1 style={{ color: 'white', textAlign: 'center' }}>Chat App!</h1>
+            <h1 style={{ textAlign: 'center' }}>Real Time Chat App!</h1>
             <Grid container>
                 <Grid item md={2} />
                 <Grid item xs={12} md={8}>
@@ -102,8 +102,8 @@ function Chat() {
                             messages &&
                             messages.map(message => (
                             <div
-                            key={message?.id}
-                            className={ `${classes.message} ${userData?.username === message?.user?.username && classes.sender}` }
+                              key={message?.id}
+                              className={ `${classes.message} ${userData?.username === message?.user?.username && classes.sender}` }
                             >
                                 { userData?.username !== message?.user?.username &&
                                     <Link to={`/profile/${message?.user.id}`}

@@ -20,7 +20,7 @@ class FollowsController extends Controller
 
     public function following(User $user)
     {
-        return $user->following;
+        return $user->following->count();
     }
 
     public function followers(User $user)

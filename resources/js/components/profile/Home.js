@@ -6,7 +6,7 @@ import { useStateValue } from '../../StateProvider';
 import { useAxiosGet, useAxiosGetPost } from '../Hooks/HttpRequests';
 import PostModal from './PostModal';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import LikePost from './LikePost';
 
 const useStyles = makeStyles((theme) => ({
     postImg: {
@@ -31,9 +31,8 @@ function Home() {
 
     const home = useAxiosGet(url, headers)
     const posts = useAxiosGetPost("http://127.0.0.1:8000/api/auth/fp", headers)
-    console.log(posts)
 
-    const [ {}, dispatch] = useStateValue()
+    const [ { }, dispatch] = useStateValue()
 
     useEffect(() => {
         localStorage.setItem('userId', home.id)
@@ -65,15 +64,22 @@ function Home() {
                                         imgSrc={require(`../../../../storage/app/public/uploads${post.upload_file}`)}
                                         imgStyle={classes.postImg}
                                     />
-                                    <div style={{ marginTop: '10px', display: 'flex', padding: '5px', backgroundColor: 'black', borderRadius: '10px', width: '160px' }}>
+                                    <div style={{ marginTop: '10px', display: 'flex', padding: '5px', backgroundColor: '#424242', borderRadius: '10px', width: '160px' }}>
                                         <div style={{ marginLeft: '20px', display: 'flex', alignItems: 'center' }}>
-                                            <span style={{paddingRight: '7px', color: 'white', paddingBottom: '2px'}}>{post?.comments?.length}</span>
+                                            <span style={{paddingRight: '7px', color: 'white', paddingBottom: '2px'}}>
+                                                {post?.comments?.length}
+                                            </span>
                                             <Link to={`/post/${post.id}`}>
                                                 <ChatBubbleIcon style={{ color: 'white' }} />
                                             </Link>
                                         </div>
                                         <div style={{ marginLeft: '20px', display: 'flex', alignItems: 'center' }}>
-                                            <span style={{ paddingRight: '7px', color: 'white' }}>yy</span><FavoriteBorderIcon style={{color: 'white'}} />
+                                            <span style={{ paddingRight: '7px', color: 'white', paddingBottom: '3px' }}>
+                                                {post?.likes?.length}
+                                            </span>
+                                            <LikePost
+                                                postId={post?.id}
+                                            />
                                         </div>
                                     </div>
                                     <hr style={{ marginBottom: '50px', marginTop: '35px'}} />

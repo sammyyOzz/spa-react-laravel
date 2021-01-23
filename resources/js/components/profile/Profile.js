@@ -73,7 +73,6 @@ function Profile() {
     const postUrl = `http://127.0.0.1:8000/api/${id}/posts`
     const posts = useAxiosGetPost(postUrl)
     const followersUrl = `http://127.0.0.1:8000/api/followers/${id}`
-    // let followers = useAxiosGetPost(followersUrl)
     const followingUrl = `http://127.0.0.1:8000/api/following/${id}`
     const following = useAxiosGetPost(followingUrl)
 
@@ -183,7 +182,7 @@ function Profile() {
                             <Grid item><Typography variant="overline" style={{color: '#76ff03'}}>followers</Typography></Grid>
                         </Grid>
                         <Grid item container direction="column" alignItems="center">
-                            <Grid item><Typography variant="h6" style={{color: 'yellow'}}>{following?.length}</Typography></Grid>
+                            <Grid item><Typography variant="h6" style={{color: 'yellow'}}>{following}</Typography></Grid>
                             <Grid item><Typography variant="overline" style={{color: 'yellow'}}>following</Typography></Grid>
                         </Grid>
                     </Grid>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 
@@ -40,8 +40,6 @@ export const useAxiosGetPost = (url, headers) => {
 
         fetchRequest();
     }, [url]);
-
-    // const result = info.data
 
     return info
 }
